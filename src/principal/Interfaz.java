@@ -43,8 +43,8 @@ public class Interfaz {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Prueba");
-		btnNewButton.setBounds(24, 124, 89, 23);
+		JButton btnNewButton = new JButton("Start Game");
+		btnNewButton.setBounds(176, 107, 89, 51);
 		frame.getContentPane().add(btnNewButton);
 		System.out.println("Hello World");
 	}
