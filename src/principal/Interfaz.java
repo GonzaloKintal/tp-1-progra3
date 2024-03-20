@@ -42,7 +42,7 @@ public class Interfaz {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Prueba");
-		btnNewButton.setBounds(170, 123, 89, 23);
+		btnNewButton.setBounds(24, 124, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 		System.out.println("Hello World");
 	}
