@@ -3,6 +3,7 @@ package principal;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JButton;
 
 public class Interfaz {
 
@@ -38,6 +39,11 @@ public class Interfaz {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JButton btnNewButton = new JButton("Prueba");
+		btnNewButton.setBounds(170, 123, 89, 23);
+		frame.getContentPane().add(btnNewButton);
 		System.out.println("Hello World");
 	}
 	
