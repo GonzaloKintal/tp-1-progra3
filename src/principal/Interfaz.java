@@ -20,6 +20,7 @@ public class Interfaz {
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					
 				}
 			}
 		});
@@ -30,6 +31,7 @@ public class Interfaz {
 	 */
 	public Interfaz() {
 		initialize();
+		System.out.println("odio windowBuilder");
 	}
 
 	/**
