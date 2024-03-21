@@ -1,4 +1,4 @@
-package principal;
+package interfaz;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -52,28 +52,10 @@ public class Test {
         frame.getContentPane().add(panel);
         panel.setLayout(new GridLayout(4, 4, 0, 0));
 
-        int[][] miMatriz = {
-        		{0, 0, 0, 0},
-        		{0, 0, 1, 0},
-        		{0, 0, 0, 0},
-        		{0, 0, 1, 0}
-        };
-        
-        // Celdas
-        for (int i = 0; i < miMatriz.length; i++) {
-        	for(int j = 0; j < miMatriz[0].length; j++) {
-        		JLabel label = new JLabel("1");
-        		if(miMatriz[i][j] == 1) {
-        			label.setBackground(Color.BLUE);        		
-        		}
-        		label.setForeground(Color.WHITE);
-        		label.setOpaque(true);
-        		label.setFont(new Font("Comic Sans", Font.PLAIN, 20));
-        		label.setBorder(new LineBorder(Color.BLACK));
-        		label.setHorizontalAlignment(SwingConstants.CENTER);
-        		panel.add(label);        		
-        	}
-        }
+//       
+//        
+//        // Celdas
+//        
 	}
 	
 	
