@@ -15,7 +15,6 @@ import logica.Juego;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Interfaz{
 
@@ -45,7 +44,6 @@ public class Interfaz{
 	 */
 	public Interfaz() {
 		initialize();
-		this.addKeyListener(this);
 	}
 
 	/**
