@@ -62,7 +62,7 @@ public class Interfaz{
 		JPanel panel = new JPanel();
         frame.getContentPane().add(panel);
         panel.setLayout(new GridLayout(4, 4, 0, 0));
-        actualizarPantalla(panel);
+
 				
 		frame.addKeyListener(new KeyAdapter() {
             // Key Pressed method
@@ -74,22 +74,31 @@ public class Interfaz{
                 actualizarPantalla(panel);
             }
         });
+		actualizarPantalla(panel);
 	}
 	
 	private void actualizarPantalla(JPanel panel) {
-		for (int i = 0; i < juego.getTamañoTablero(); i++) {
-			for (int j = 0; j < juego.getTamañoTablero(); j++) {
-				JLabel label = new JLabel(juego.obtenerValor(i, j));
-				if (juego.tableroTieneNumero(i, j)) {
-					label.setBackground(Color.BLUE);
-				}
-				label.setForeground(Color.GREEN);
-				label.setOpaque(true);
-				label.setFont(new Font("Comic Sans", Font.PLAIN, 20));
-				label.setBorder(new LineBorder(Color.BLACK));
-				label.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(label);
-			}
-		}
+	    // Elimina todos los componentes del panel
+	    panel.removeAll();
+	    
+	    for (int i = 0; i < juego.getTamañoTablero(); i++) {
+	        for (int j = 0; j < juego.getTamañoTablero(); j++) {
+	            JLabel label = new JLabel(juego.obtenerValor(i, j));
+	            if (juego.tableroTieneNumero(i, j)) {
+	                label.setBackground(Color.BLUE);
+	            }
+	            label.setForeground(Color.GREEN);
+	            label.setOpaque(true);
+	            label.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+	            label.setBorder(new LineBorder(Color.BLACK));
+	            label.setHorizontalAlignment(SwingConstants.CENTER);
+	            panel.add(label);
+	        }
+	    }
+	    
+	    // Actualiza y repinta el panel
+	    panel.revalidate();
+	    panel.repaint();
 	}
+	
 }
