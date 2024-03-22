@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Tablero {
 	int[][] matriz;
+	int puntaje;
 	
 	Tablero(int numCasillas) {
 		this.matriz = new int[numCasillas][numCasillas];
@@ -52,6 +53,7 @@ public class Tablero {
 					if(estaOcupado(fila, celdaContigua)) {
 						col++;						
 					}
+					puntaje += matriz[fila][celdaContigua];
 				} else if(!estaOcupado(fila, celdaContigua)) {
 					moverCelda(fila, col, celdaContigua);	
 				}
@@ -91,5 +93,9 @@ public class Tablero {
 	public void agregarNumero() {
 		Point nuevaCasilla = generarPosicion();
 		this.matriz[nuevaCasilla.x][nuevaCasilla.y] = esDosOCuatro();
+	}
+	
+	public int getPuntaje() {
+		return this.puntaje;
 	}
 }

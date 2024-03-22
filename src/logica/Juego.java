@@ -4,6 +4,7 @@ package logica;
 
 public class Juego {
 	Tablero tablero;
+	private int puntaje;
 	
 	public Juego(){
 		this.tablero = new Tablero(4);
@@ -28,7 +29,12 @@ public class Juego {
 
 	public void moverHorizontal() {
 		this.tablero.moverNumerosHorizontal();
-		// TODO Auto-generated method stub
 		
+		puntaje = tablero.getPuntaje();
 	}
+	
+	public int getPuntaje() {
+		return this.puntaje;
+	}
+	
 }
