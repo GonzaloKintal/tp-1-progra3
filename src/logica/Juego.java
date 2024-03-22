@@ -9,10 +9,6 @@ public class Juego {
 		this.tablero = new Tablero(4);
 		System.out.println("Iniciando juego");
 	}
-	 
-	public int dameNum() {
-		return 2;
-	}
 	
 	public int getTamañoTablero () {
 		return 4;
@@ -22,7 +18,7 @@ public class Juego {
 		return this.tablero.estaOcupado(pos1, pos2);
 	}
 
-	public String obtenerValor(int i, int j) {
+	public int obtenerValor(int i, int j) {
 		return this.tablero.obtenerValor(i, j);
 	}
 

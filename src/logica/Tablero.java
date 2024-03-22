@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Tablero {
 	int[][] matriz;
-
+	
 	Tablero(int numCasillas) {
 		this.matriz = new int[numCasillas][numCasillas];
 		this.agregarNumero();
@@ -81,19 +81,15 @@ public class Tablero {
 		return this.matriz[pos1][pos2] != 0;
 	}
 
-	public String obtenerValor(int i, int j) {
-		return this.matriz[i][j] != 0 ? Integer.toString(this.matriz[i][j]) : "";
+//	public String obtenerValor(int i, int j) {
+//		return this.matriz[i][j] != 0 ? Integer.toString(this.matriz[i][j]) : "";
+//	}
+	public int obtenerValor(int i, int j) {
+		return this.matriz[i][j] != 0 ? this.matriz[i][j] : 0;
 	}
 
 	public void agregarNumero() {
 		Point nuevaCasilla = generarPosicion();
 		this.matriz[nuevaCasilla.x][nuevaCasilla.y] = esDosOCuatro();
-//		for(int i=0; i < matriz.length; i++) {
-//			System.out.println("\n");
-//			for(int j= 0; j < matriz[0].length; j++) {
-//				System.out.print(matriz[i][j]);
-//			}
-//		}
-//		System.out.println("----------------------");
 	}
 }

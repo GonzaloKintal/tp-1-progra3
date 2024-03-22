@@ -22,6 +22,7 @@ public class Interfaz{
 	private int HEIGHT = 500;
 	private int WIDTH = 500;
 	private Juego juego;
+	private Color[] colores = {Color.BLUE, Color.GREEN, Color.PINK, Color.MAGENTA};
 
 	/**
 	 * Launch the application.
@@ -84,11 +85,17 @@ public class Interfaz{
 	    
 	    for (int i = 0; i < juego.getTamañoTablero(); i++) {
 	        for (int j = 0; j < juego.getTamañoTablero(); j++) {
-	            JLabel label = new JLabel(juego.obtenerValor(i, j));
-	            if (juego.tableroTieneNumero(i, j)) {
-	                label.setBackground(Color.BLUE);
+	        	int valorCasilla = juego.obtenerValor(i, j);
+	            JLabel label = new JLabel(Integer.toString(valorCasilla));
+	            
+	            if (valorCasilla != 0) {
+	            	int valor = (int) log2(valorCasilla);
+	                label.setBackground(this.colores[valor - 1]);
+	                label.setForeground(Color.BLACK);
+	            }else {
+	            	label.setForeground(new Color(240,240,240));
 	            }
-	            label.setForeground(Color.GREEN);
+	            
 	            label.setOpaque(true);
 	            label.setFont(new Font("Comic Sans", Font.PLAIN, 20));
 	            label.setBorder(new LineBorder(Color.BLACK));
@@ -101,5 +108,9 @@ public class Interfaz{
 	    panel.revalidate();
 	    panel.repaint();
 	}
+	
+	 public static double log2(int x) {
+	        return Math.log(x) / Math.log(2);
+	    }
 	
 }
