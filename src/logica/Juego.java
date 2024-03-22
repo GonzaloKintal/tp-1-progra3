@@ -29,4 +29,10 @@ public class Juego {
 	public void agregarNumero() {
 		this.tablero.agregarNumero();
 	}
+
+	public void moverHorizontal() {
+		this.tablero.moverNumerosHorizontal();
+		// TODO Auto-generated method stub
+		
+	}
 }

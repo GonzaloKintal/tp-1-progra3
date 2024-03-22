@@ -40,6 +40,39 @@ public class Tablero {
 		return dameRandom(10) > 7 ? 4 : 2;
 	}
 
+	public void moverNumerosHorizontal() {
+		// Intentar mover todos los valores hacia la derecha del tablero
+
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz.length; j++) {
+				if (!estaOcupado(i, j))
+					continue;
+
+				int celdaContigua = j + 1;
+				if (!estaEnRango(celdaContigua)) {
+					continue;
+				}
+
+				if (matriz[i][j] == matriz[i][celdaContigua]) {
+					matriz[i][celdaContigua] += matriz[i][j];
+					matriz[i][j] = 0;
+					j++;
+				} else if(!estaOcupado(i, celdaContigua)) {
+					matriz[i][celdaContigua] = matriz[i][j];
+					matriz[i][j] = 0;					
+				}
+			}
+		}
+	}
+	
+//	private boolean casillerosTienenMismoValor() {
+//		return
+//	}
+
+	private boolean estaEnRango(int pos) {
+		return pos < matriz.length || pos < 0;
+	}
+
 	public boolean estaOcupado(int pos1, int pos2) {
 		return this.matriz[pos1][pos2] != 0;
 	}
@@ -51,12 +84,12 @@ public class Tablero {
 	public void agregarNumero() {
 		Point nuevaCasilla = generarPosicion();
 		this.matriz[nuevaCasilla.x][nuevaCasilla.y] = esDosOCuatro();
-		for(int i=0; i < matriz.length; i++) {
-			System.out.println("\n");
-			for(int j= 0; j < matriz[0].length; j++) {
-				System.out.print(matriz[i][j]);
-			}
-		}
-		System.out.println("----------------------");
+//		for(int i=0; i < matriz.length; i++) {
+//			System.out.println("\n");
+//			for(int j= 0; j < matriz[0].length; j++) {
+//				System.out.print(matriz[i][j]);
+//			}
+//		}
+//		System.out.println("----------------------");
 	}
 }

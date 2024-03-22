@@ -69,6 +69,7 @@ public class Interfaz{
             public void keyPressed(KeyEvent e) {
                 // Check if an up key was pressed
                 if(e.getKeyCode() == KeyEvent.VK_UP){
+                	juego.moverHorizontal();
                 	juego.agregarNumero();
                 }
                 actualizarPantalla(panel);
