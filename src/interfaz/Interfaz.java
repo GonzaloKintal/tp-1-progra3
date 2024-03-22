@@ -22,9 +22,7 @@ public class Interfaz{
 	private int HEIGHT = 500;
 	private int WIDTH = 500;
 	private Juego juego;
-	private Color[] colores = {new Color(200, 241, 254), new Color(106, 226, 246), new Color(32, 200, 233), new Color(10, 173, 208),
-								new Color(12, 138, 174), new Color(17, 110, 141), new Color(23, 90, 115), new Color(24, 75, 97),
-								new Color(9, 48, 67), new Color(9, 48, 67), new Color(9, 48, 67)};
+	private Color[] colores = {new Color(200, 241, 254), new Color(106, 226, 246), new Color(32, 200, 233), new Color(10, 173, 208), new Color(12, 138, 174), new Color(17, 110, 141), new Color(23, 90, 115), new Color(24, 75, 97),new Color(9, 48, 67), new Color(9, 48, 67), new Color(9, 48, 67)};
 
 	/**
 	 * Launch the application.
