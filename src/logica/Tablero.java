@@ -41,34 +41,38 @@ public class Tablero {
 	}
 
 	public void moverNumerosHorizontal() {
-		// Intentar mover todos los valores hacia la derecha del tablero
-
-		for (int i = 0; i < matriz.length; i++) {
-			for (int j = 0; j < matriz.length; j++) {
-				if (!estaOcupado(i, j))
+		for (int fila = 0; fila < matriz.length; fila++) {
+			for (int col = 0; col < matriz.length; col++) {
+				int celdaContigua = col + 1;
+				if (!estaOcupado(fila, col) || !estaEnRango(celdaContigua))
 					continue;
 
-				int celdaContigua = j + 1;
-				if (!estaEnRango(celdaContigua)) {
-					continue;
-				}
-
-				if (matriz[i][j] == matriz[i][celdaContigua]) {
-					matriz[i][celdaContigua] += matriz[i][j];
-					matriz[i][j] = 0;
-					j++;
-				} else if(!estaOcupado(i, celdaContigua)) {
-					matriz[i][celdaContigua] = matriz[i][j];
-					matriz[i][j] = 0;					
+				if (celdasSonIguales(fila, col, celdaContigua)) {
+					sumarContiguas(fila, col, celdaContigua);
+					if(estaOcupado(fila, celdaContigua)) {
+						col++;						
+					}
+				} else if(!estaOcupado(fila, celdaContigua)) {
+					moverCelda(fila, col, celdaContigua);	
 				}
 			}
 		}
 	}
 	
-//	private boolean casillerosTienenMismoValor() {
-//		return
-//	}
+	private void moverCelda(int fila, int col, int colContigua) {
+		matriz[fila][colContigua] = matriz[fila][col];
+		matriz[fila][col] = 0;	
+	}
 
+	private void sumarContiguas(int fila, int col, int colContigua) {
+		matriz[fila][colContigua] += matriz[fila][col];
+		matriz[fila][col] = 0;
+	}
+	
+	private boolean celdasSonIguales(int fila, int col, int colContigua) {
+		return matriz[fila][col] == matriz[fila][colContigua];
+	}
+	
 	private boolean estaEnRango(int pos) {
 		return pos < matriz.length || pos < 0;
 	}
