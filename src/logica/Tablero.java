@@ -85,7 +85,7 @@ public class Tablero {
 //		return this.matriz[i][j] != 0 ? Integer.toString(this.matriz[i][j]) : "";
 //	}
 	public int obtenerValor(int i, int j) {
-		return this.matriz[i][j] != 0 ? this.matriz[i][j] : 0;
+		return this.matriz[i][j];
 	}
 
 	public void agregarNumero() {
