@@ -84,11 +84,16 @@ public class Interfaz {
 				// Check if an up key was pressed
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					juego.moverHorizontal();
-					juego.agregarNumero();
 				}
+				
+				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+					juego.moverAbajo();
+				}
+				juego.agregarNumero();
 				actualizarPantalla(panel);
 				actualizarPuntaje();
 			}
+			
 		});
 		actualizarPantalla(panel);
 	}

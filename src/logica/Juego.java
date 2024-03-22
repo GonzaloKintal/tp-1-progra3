@@ -32,6 +32,11 @@ public class Juego {
 		
 		puntaje = tablero.getPuntaje();
 	}
+	public void moverAbajo() {
+		this.tablero.moverNumerosAbajo();
+		
+		puntaje = tablero.getPuntaje();
+	}
 	
 	public int getPuntaje() {
 		return this.puntaje;
