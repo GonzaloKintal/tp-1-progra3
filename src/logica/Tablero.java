@@ -43,17 +43,17 @@ public class Tablero {
 
 	public void moverNumerosHorizontal() {
 		for (int fila = 0; fila < matriz.length; fila++) {
-			for (int col = 0; col < matriz.length; col++) {
-				int celdaContigua = col + 1;
+			for (int col = 3; col >= 0; col--) {
+				int celdaContigua = col - 1;
 				if (!estaOcupado(fila, col) || !estaEnRango(celdaContigua))
 					continue;
 
 				if (celdasSonIguales(fila, col, celdaContigua)) {
 					sumarContiguas(fila, col, celdaContigua);
-					if (estaOcupado(fila, celdaContigua)) {
-						col++;
-					}
-					puntaje += matriz[fila][celdaContigua];
+//					if (estaOcupado(fila, celdaContigua)) {
+//						col++;
+//					}
+//					puntaje += matriz[fila][col];
 				} else if (!estaOcupado(fila, celdaContigua)) {
 					moverCelda(fila, col, celdaContigua);
 				}
@@ -107,13 +107,13 @@ public class Tablero {
 	}
 
 	private void moverCelda(int fila, int col, int colContigua) {
-		matriz[fila][colContigua] = matriz[fila][col];
-		matriz[fila][col] = 0;
+		matriz[fila][col] = matriz[fila][colContigua];
+		matriz[fila][colContigua] = 0;
 	}
 
 	private void sumarContiguas(int fila, int col, int colContigua) {
-		matriz[fila][colContigua] += matriz[fila][col];
-		matriz[fila][col] = 0;
+		matriz[fila][col] += matriz[fila][colContigua];
+		matriz[fila][colContigua] = 0;
 	}
 
 	private boolean celdasSonIguales(int fila, int col, int colContigua) {
