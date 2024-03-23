@@ -50,49 +50,65 @@ public class Tablero {
 
 	public void moverNumerosDerecha() {
 		for (int fila = 0; fila < matriz.length; fila++) {
-			for (int col = matriz.length - 1; col >= 0; col--) {
-				boolean yaSeSumo = false;
-				for (int contigua = col - 1; contigua >= 0; contigua--) {
-					if (estaVacio(fila, col) && estaOcupado(fila, contigua))
-						switchCeldas(fila, col, contigua);
+			recorrerColumnasDerIzq(fila);
+		}
+	}
 
-					if (estaVacio(fila, contigua))
-						continue;
+	private void recorrerColumnasDerIzq(int fila) {
+		for (int col = matriz.length - 1; col >= 0; col--) {
+			movimientosDerIzq(fila, col);
+		}
+	}
 
-					if (!celdasSonIguales(fila, col, contigua))
-						break;
+	private void movimientosDerIzq(int fila, int col) {
+		boolean yaSeSumo = false;
+		for (int contigua = col - 1; contigua >= 0; contigua--) {
+			if (estaVacio(fila, col) && estaOcupado(fila, contigua))
+				switchCeldas(fila, col, contigua);
 
-					if (celdasSonIguales(fila, col, contigua) && yaSeSumo)
-						moverCasilleroAMiLado(fila, col, contigua, -1);
+			if (estaVacio(fila, contigua))
+				continue;
 
-					sumarCeldas(fila, col, contigua);
-					yaSeSumo = true;
-				}
-			}
+			if (!celdasSonIguales(fila, col, contigua))
+				break;
+
+			if (celdasSonIguales(fila, col, contigua) && yaSeSumo)
+				moverCasilleroAMiLado(fila, col, contigua, -1);
+
+			sumarCeldas(fila, col, contigua);
+			yaSeSumo = true;
 		}
 	}
 
 	public void moverNumerosIzquierda() {
 		for (int fila = 0; fila < matriz.length; fila++) {
-			for (int col = 0; col < matriz.length; col++) {
-				boolean yaSeSumo = false;
-				for (int contigua = col + 1; contigua < matriz.length; contigua++) {
-					if (estaVacio(fila, col) && estaOcupado(fila, contigua))
-						switchCeldas(fila, col, contigua);
-					
-					if (estaVacio(fila, contigua))
-						continue;
+			recorrerColumnasIzqDer(fila);
+		}
+	}
 
-					if (!celdasSonIguales(fila, col, contigua))
-						break;
+	private void recorrerColumnasIzqDer(int fila) {
+		for (int col = 0; col < matriz.length; col++) {
+			movimientosIzqDer(fila, col);
+		}
+	}
 
-					if (celdasSonIguales(fila, col, contigua) && yaSeSumo)
-						moverCasilleroAMiLado(fila, col, contigua, 1);
+	private void movimientosIzqDer(int fila, int col) {
+		boolean yaSeSumo = false;
+		for (int contigua = col + 1; contigua < matriz.length; contigua++) {
+			if (estaVacio(fila, col) && estaOcupado(fila, contigua))
+				switchCeldas(fila, col, contigua);
+			
+			if (estaVacio(fila, contigua))
+				continue;
 
-					sumarCeldas(fila, col, contigua);
-					yaSeSumo = true;
-				}
-			}
+			if (!celdasSonIguales(fila, col, contigua))
+				break;
+
+			if (celdasSonIguales(fila, col, contigua) && yaSeSumo)
+				moverCasilleroAMiLado(fila, col, contigua, 1);
+
+			sumarCeldas(fila, col, contigua);
+			yaSeSumo = true;
 		}
 	}
 
