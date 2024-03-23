@@ -81,12 +81,12 @@ public class Interfaz {
 			// Key Pressed method
 			public void keyPressed(KeyEvent e) {
 				// Check if an up key was pressed
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					juego.moverDerecha();
-				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					juego.moverIzquierda();
-				}
+//				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+//					juego.moverDerecha();
+//				}
+//				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+//					juego.moverIzquierda();
+//				}
 				
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					juego.moverAbajo();

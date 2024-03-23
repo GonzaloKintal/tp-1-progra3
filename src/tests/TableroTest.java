@@ -14,6 +14,15 @@ public class TableroTest {
 			{ 0, 2, 0, 0 }
 			};
 	
+	int[][] matrizMovidaAbajo= {
+			{ 0, 0, 0, 0 },
+			{ 0, 0, 0, 0 },
+			{ 0, 2, 2, 4 },
+			{ 2, 4, 4, 4 }, 
+	};
+	
+
+	
 	int[][] matrizMovidaALaDerecha = {
 			{ 0, 0, 0, 4 },
 			{ 0, 0, 4, 4 },
@@ -34,6 +43,13 @@ public class TableroTest {
 			{ 4, 0, 0, 4 }, 
 			{ 4, 0, 2, 2 }
 			};
+	
+	int[][] matrizMovidaAbajo2 = {
+			{ 0, 0, 0, 2 },
+			{ 0, 0, 0, 8 },
+			{ 4, 4, 4, 4 },
+			{ 8, 2, 2, 2 }, 
+	};
 	
 	int[][] matrizMovidaALaDerecha2 = {
 			{ 0, 2, 4, 2 },
@@ -89,6 +105,17 @@ public class TableroTest {
 		this.tablero = new Tablero(matriz_init2);
 		this.tablero.moverNumerosIzquierda();
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaALaIzquierda2));
+	}
+	
+	@Test
+	public void tableroMovedDownIsEqual() {
+		this.tablero = new Tablero(matriz_init);
+		this.tablero.moverNumerosAbajo();
+		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaAbajo));
+		
+		this.tablero = new Tablero(matriz_init2);
+		this.tablero.moverNumerosAbajo();
+		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaAbajo2));
 	}
 
 	// Utility methods

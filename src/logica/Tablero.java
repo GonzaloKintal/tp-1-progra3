@@ -34,7 +34,9 @@ public class Tablero {
 	}
 
 	/**
-	 * Devuelve un numero random entre 0 y el valor pasado como parametro sin incluirlo
+	 * Devuelve un numero random entre 0 y el valor pasado como parametro sin
+	 * incluirlo
+	 * 
 	 * @param valor int
 	 * @return int
 	 */
@@ -97,7 +99,7 @@ public class Tablero {
 		for (int contigua = col + 1; contigua < matriz.length; contigua++) {
 			if (estaVacio(fila, col) && estaOcupado(fila, contigua))
 				switchCeldas(fila, col, contigua);
-			
+
 			if (estaVacio(fila, contigua))
 				continue;
 
@@ -131,66 +133,44 @@ public class Tablero {
 			recorrerFilasAbajoArriba(col);
 		}
 	}
-	
+
 	private void recorrerFilasAbajoArriba(int col) {
-		for (int fila = matriz.length-1; fila >= 0; fila--) {
+		for (int fila = matriz.length - 1; fila >= 0; fila--) {
 			movimientosAbajoArriba(fila, col);
 		}
 	}
-	
+
 	private void movimientosAbajoArriba(int fila, int col) {
 		boolean yaSeSumo = false;
-		System.out.println("Probando");
-		for (int contigua = fila-1; contigua >= 0; contigua--) {
-			if (estaVacio(fila, col) && estaOcupado(fila, contigua))
-				switchCeldas(fila, col, contigua);
-
-			if (estaVacio(fila, contigua))
+		for (int contigua = fila - 1; contigua >= 0; contigua--) {
+			if (matriz[fila][col] == 0 && matriz[contigua][col] != 0) {
+				matriz[fila][col] = matriz[contigua][col];
+				matriz[contigua][col] = 0;
+			}
+			if (matriz[contigua][col] == 0)
 				continue;
 
-			if (!celdasSonIguales(fila, col, contigua))
+			if (matriz[contigua][col] != 0 && matriz[fila][col] != 0 && matriz[fila][col] != matriz[contigua][col])
 				break;
 
-			if (celdasSonIguales(fila, col, contigua) && yaSeSumo) {
-//				moverCeldaAbajo(fila, col, contigua);
-				int aux = matriz[fila][contigua];
-				matriz[fila][contigua] = 0;
-				matriz[fila][col - 1] = aux;
+			if (matriz[contigua][col] != 0 && matriz[fila][col] != 0 && matriz[fila][col] == matriz[contigua][col] && yaSeSumo) {
+				int aux = matriz[contigua][col];
+				matriz[contigua][col] = 0;
+				matriz[fila - 1][col] = aux;
 			}
 
-			sumarCeldas(fila, col, contigua);
+			matriz[fila][col] += matriz[contigua][col];
+			matriz[contigua][col] = 0;
+			puntaje += matriz[fila][col];
 			yaSeSumo = true;
 		}
-	}
-
-	private void moverCeldaAbajo(int fila, int col, int filaContigua) {
-		matriz[fila][col] = matriz[filaContigua][col];
-	    matriz[filaContigua][col] = 0;
-	}
-
-	private void sumarContiguasAbajo(int fila, int col, int filaContigua) {
-		matriz[filaContigua][col] += matriz[fila][col];
-		verificarCeldaArriba(fila, col);
-	}
-
-	private void verificarCeldaArriba(int fila, int col) {
-		if (estaEnRango(fila - 1) && estaOcupado(fila - 1, col)) {
-			matriz[fila][col] = matriz[fila - 1][col];
-			matriz[fila - 1][col] = 0;
-		} else {
-			matriz[fila][col] = 0;
-		}
-	}
-
-	private boolean celdasSonIgualesAbajo(int fila, int col, int filaContigua) {
-		return matriz[fila][col] == matriz[filaContigua][col];
 	}
 
 	private void switchCeldas(int fila, int col, int contigua) {
 		matriz[fila][col] = matriz[fila][contigua];
 		matriz[fila][contigua] = 0;
 	}
-	
+
 	private void sumarCeldas(int fila, int col, int colContigua) {
 		matriz[fila][col] += matriz[fila][colContigua];
 		matriz[fila][colContigua] = 0;
@@ -206,10 +186,6 @@ public class Tablero {
 		}
 
 		return matriz[fila][col] == matriz[fila][colContigua];
-	}
-
-	private boolean estaEnRango(int pos) {
-		return pos < matriz.length && pos >= 0;
 	}
 
 	public boolean estaOcupado(int pos1, int pos2) {

@@ -29,15 +29,15 @@ public class Juego {
 		this.tablero.agregarNumero();
 	}
 
-	public void moverIzquierda() {
-		this.tablero.moverNumerosIzquierda();	
-		puntaje = tablero.getPuntaje();
-	}
-	
-	public void moverDerecha() {
-		this.tablero.moverNumerosDerecha();	
-		puntaje = tablero.getPuntaje();
-	}
+//	public void moverIzquierda() {
+//		this.tablero.moverNumerosIzquierda();	
+//		puntaje = tablero.getPuntaje();
+//	}
+//	
+//	public void moverDerecha() {
+//		this.tablero.moverNumerosDerecha();	
+//		puntaje = tablero.getPuntaje();
+//	}
 	
 	public void moverAbajo() {
 		this.tablero.moverNumerosAbajo();
