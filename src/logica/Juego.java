@@ -6,15 +6,15 @@ public class Juego {
 	Tablero tablero;
 	private int puntaje;
 	
-	public Juego(){
-		this.tablero = new Tablero(4);
+	public Juego(int numCasillas){
+		this.tablero = new Tablero(numCasillas);
 		this.tablero.agregarNumero();
 		this.tablero.agregarNumero();
 		System.out.println("Iniciando juego");
 	}
 	
 	public int getTamañoTablero () {
-		return 4;
+		return this.tablero.getSize();
 	}
 	
 	public boolean tableroTieneNumero(int pos1, int pos2) {

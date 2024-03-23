@@ -21,9 +21,10 @@ import java.awt.event.KeyEvent;
 public class Interfaz {
 
 	private JFrame frame;
+	private Juego juego;
 	private int HEIGHT = 500;
 	private int WIDTH = 500;
-	private Juego juego;
+	private int DIMENSION_TABLERO = 4;
 	private Color[] colores = { new Color(200, 241, 254), new Color(106, 226, 246), new Color(32, 200, 233),
 			new Color(10, 173, 208), new Color(12, 138, 174), new Color(17, 110, 141), new Color(23, 90, 115),
 			new Color(24, 75, 97), new Color(9, 48, 67), new Color(9, 48, 67), new Color(9, 48, 67) };
@@ -58,7 +59,6 @@ public class Interfaz {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.juego = new Juego();
 		// Config Frame
 		frame = new JFrame();
 		frame.setTitle("2048");
@@ -69,7 +69,7 @@ public class Interfaz {
 		// Config panel (Tablero)
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel);
-		panel.setLayout(new GridLayout(4, 4, 0, 0));
+		panel.setLayout(new GridLayout(DIMENSION_TABLERO, DIMENSION_TABLERO, 0, 0));
 
 		// Agrego un JLabel para mostrar el puntaje en el encabezado
 		JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -78,6 +78,9 @@ public class Interfaz {
 		headerPanel.add(scoreLabel);
 		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
 
+		// Init juego
+		this.juego = new Juego(DIMENSION_TABLERO);
+		
 		frame.addKeyListener(new KeyAdapter() {
 			// Key Pressed method
 			public void keyPressed(KeyEvent e) {
