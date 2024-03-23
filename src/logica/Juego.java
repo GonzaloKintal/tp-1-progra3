@@ -8,6 +8,8 @@ public class Juego {
 	
 	public Juego(){
 		this.tablero = new Tablero(4);
+		this.tablero.agregarNumero();
+		this.tablero.agregarNumero();
 		System.out.println("Iniciando juego");
 	}
 	
@@ -27,11 +29,16 @@ public class Juego {
 		this.tablero.agregarNumero();
 	}
 
-	public void moverHorizontal() {
-		this.tablero.moverNumerosHorizontal();
-		
+	public void moverIzquierda() {
+		this.tablero.moverNumerosIzquierda();	
 		puntaje = tablero.getPuntaje();
 	}
+	
+	public void moverDerecha() {
+		this.tablero.moverNumerosDerecha();	
+		puntaje = tablero.getPuntaje();
+	}
+	
 	public void moverAbajo() {
 		this.tablero.moverNumerosAbajo();
 		

@@ -7,10 +7,12 @@ public class Tablero {
 	int[][] matriz;
 	int puntaje;
 
-	Tablero(int numCasillas) {
+	public Tablero(int numCasillas) {
 		this.matriz = new int[numCasillas][numCasillas];
-		this.agregarNumero();
-		this.agregarNumero();
+	}
+	
+	public Tablero(int[][] mat) {
+		this.matriz = mat;
 	}
 
 	private Point generarPosicion() {
@@ -41,24 +43,84 @@ public class Tablero {
 		return dameRandom(10) > 7 ? 4 : 2;
 	}
 
-	public void moverNumerosHorizontal() {
+	public void moverNumerosDerecha() {
 		for (int fila = 0; fila < matriz.length; fila++) {
-			for (int col = 0; col < matriz.length; col++) {
-				int celdaContigua = col + 1;
-				if (!estaOcupado(fila, col) || !estaEnRango(celdaContigua))
-					continue;
-
-				if (celdasSonIguales(fila, col, celdaContigua)) {
-					sumarContiguas(fila, col, celdaContigua);
-					if (estaOcupado(fila, celdaContigua)) {
-						col++;
+			for (int col = 3; col >= 0; col--) {
+				boolean yaSeSumo = false;
+				for (int contigua = col - 1; contigua >= 0; contigua--) {
+					if (estaVacio(fila, col) && estaOcupado(fila, contigua)) {
+						matriz[fila][col] = matriz[fila][contigua];
+						matriz[fila][contigua] = 0;
 					}
-					puntaje += matriz[fila][celdaContigua];
-				} else if (!estaOcupado(fila, celdaContigua)) {
-					moverCelda(fila, col, celdaContigua);
+
+					if (estaVacio(fila, contigua)) {
+						continue;
+					}
+					
+					if (estaOcupado(fila, col) && estaOcupado(fila, contigua)
+							&& !celdasSonIguales(fila, col, contigua)) {
+						break;
+					}
+
+					if (celdasSonIguales(fila, col, contigua)) {
+						if (yaSeSumo) {
+							int aux = matriz[fila][contigua];
+							matriz[fila][contigua] = 0;
+							matriz[fila][col - 1] = aux;
+						} else {
+							matriz[fila][col] += matriz[fila][contigua];
+							matriz[fila][contigua] = 0;
+							yaSeSumo = true;
+						}
+					}
 				}
 			}
 		}
+	}
+
+	public void moverNumerosIzquierda() {
+		for (int fila = 0; fila < matriz.length; fila++) {
+			for (int col = 0; col < matriz.length; col++) {
+				boolean yaSeSumo = false;
+				for (int contigua = col + 1; contigua < matriz.length; contigua++) {
+					if (estaVacio(fila, col) && estaOcupado(fila, contigua)) {
+						matriz[fila][col] = matriz[fila][contigua];
+						matriz[fila][contigua] = 0;
+					}
+
+					if (estaVacio(fila, contigua)) {
+						continue;
+					}
+					
+					if (!celdasSonIguales(fila, col, contigua)) {
+						break;
+					}
+
+
+					if (celdasSonIguales(fila, col, contigua)) {
+						if (yaSeSumo) {
+							moverCasilleroAMiLado(fila, col, contigua, 1);
+						} else {
+							sumarCeldas(fila, col, contigua);
+							yaSeSumo = true;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param fila
+	 * @param col
+	 * @param contigua
+	 * @param lado 1 Para dejar el casillero a mi derecha, -1 para dejar el casillero a mi izquierda
+	 */
+	public void moverCasilleroAMiLado(int fila, int col, int contigua, int lado) {
+		int aux = matriz[fila][contigua];
+		matriz[fila][contigua] = 0;
+		matriz[fila][col + 1] = aux;
 	}
 
 	public void moverNumerosAbajo() {
@@ -94,7 +156,7 @@ public class Tablero {
 	}
 
 	private void verificarCeldaArriba(int fila, int col) {
-		if (estaEnRango(fila-1)&& estaOcupado(fila - 1, col)) {
+		if (estaEnRango(fila - 1) && estaOcupado(fila - 1, col)) {
 			matriz[fila][col] = matriz[fila - 1][col];
 			matriz[fila - 1][col] = 0;
 		} else {
@@ -106,31 +168,38 @@ public class Tablero {
 		return matriz[fila][col] == matriz[filaContigua][col];
 	}
 
-	private void moverCelda(int fila, int col, int colContigua) {
-		matriz[fila][colContigua] = matriz[fila][col];
-		matriz[fila][col] = 0;
-	}
-
-	private void sumarContiguas(int fila, int col, int colContigua) {
-		matriz[fila][colContigua] += matriz[fila][col];
-		matriz[fila][col] = 0;
+	private void sumarCeldas(int fila, int col, int colContigua) {
+		matriz[fila][col] += matriz[fila][colContigua];
+		matriz[fila][colContigua] = 0;
 	}
 
 	private boolean celdasSonIguales(int fila, int col, int colContigua) {
+		boolean existeCasilla1 = estaOcupado(fila, col);
+		boolean existeCasilla2 = estaOcupado(fila, colContigua);
+		
+		if(!existeCasilla1 || !existeCasilla2) {
+			return false;
+		}
+		
 		return matriz[fila][col] == matriz[fila][colContigua];
 	}
 
 	private boolean estaEnRango(int pos) {
-		return pos < matriz.length && pos >=0;
+		return pos < matriz.length && pos >= 0;
 	}
 
 	public boolean estaOcupado(int pos1, int pos2) {
 		return this.matriz[pos1][pos2] != 0;
 	}
 
-//	public String obtenerValor(int i, int j) {
-//		return this.matriz[i][j] != 0 ? Integer.toString(this.matriz[i][j]) : "";
-//	}
+	public boolean estaVacio(int pos1, int pos2) {
+		return this.matriz[pos1][pos2] == 0;
+	}
+
+	public boolean celdasSonDistintas(int fila, int col, int contigua) {
+		return matriz[fila][col] != matriz[fila][contigua];
+	}
+	
 	public int obtenerValor(int i, int j) {
 		return this.matriz[i][j];
 	}
@@ -144,4 +213,11 @@ public class Tablero {
 		return this.puntaje;
 	}
 
+	public int getSize() {
+		return this.matriz.length;
+	}
+	
+	public int[][] getMatriz() {
+		return this.matriz;
+	}
 }
