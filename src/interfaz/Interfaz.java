@@ -91,6 +91,10 @@ public class Interfaz {
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					juego.moverAbajo();
 				}
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+//					juego.moverArriba();
+				}
+				
 				juego.agregarNumero();
 				actualizarPantalla(panel);
 				actualizarPuntaje();

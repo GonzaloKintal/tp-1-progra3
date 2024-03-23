@@ -127,30 +127,45 @@ public class Tablero {
 	}
 
 	public void moverNumerosAbajo() {
-		for (int fila = 0; fila < matriz.length; fila++) {
-			for (int col = 0; col < matriz.length; col++) {
-				int celdaContigua = fila + 1;
-				if (!estaOcupado(fila, col) || !estaEnRango(celdaContigua))
-					continue;
-
-				if (celdasSonIgualesAbajo(fila, col, celdaContigua)) {
-					sumarContiguasAbajo(fila, col, celdaContigua);
-					if (estaOcupado(celdaContigua, col)) {
-						fila++;
-					}
-					puntaje += matriz[celdaContigua][col];
-				} else if (!estaOcupado(celdaContigua, col)) {
-					moverCeldaAbajo(fila, col, celdaContigua);
-				}
-			}
+		for (int col = 0; col < matriz.length; col++) {
+			recorrerFilasAbajoArriba(col);
 		}
+	}
+	
+	private void recorrerFilasAbajoArriba(int col) {
+		for (int fila = matriz.length-1; fila >= 0; fila--) {
+			movimientosAbajoArriba(fila, col);
+		}
+	}
+	
+	private void movimientosAbajoArriba(int fila, int col) {
+		boolean yaSeSumo = false;
+		System.out.println("Probando");
+		for (int contigua = fila-1; contigua >= 0; contigua--) {
+			if (estaVacio(fila, col) && estaOcupado(fila, contigua))
+				switchCeldas(fila, col, contigua);
 
+			if (estaVacio(fila, contigua))
+				continue;
+
+			if (!celdasSonIguales(fila, col, contigua))
+				break;
+
+			if (celdasSonIguales(fila, col, contigua) && yaSeSumo) {
+//				moverCeldaAbajo(fila, col, contigua);
+				int aux = matriz[fila][contigua];
+				matriz[fila][contigua] = 0;
+				matriz[fila][col - 1] = aux;
+			}
+
+			sumarCeldas(fila, col, contigua);
+			yaSeSumo = true;
+		}
 	}
 
 	private void moverCeldaAbajo(int fila, int col, int filaContigua) {
-		matriz[filaContigua][col] = matriz[fila][col];
-		matriz[fila][col] = 0;
-
+		matriz[fila][col] = matriz[filaContigua][col];
+	    matriz[filaContigua][col] = 0;
 	}
 
 	private void sumarContiguasAbajo(int fila, int col, int filaContigua) {
@@ -179,6 +194,7 @@ public class Tablero {
 	private void sumarCeldas(int fila, int col, int colContigua) {
 		matriz[fila][col] += matriz[fila][colContigua];
 		matriz[fila][colContigua] = 0;
+		puntaje += matriz[fila][col];
 	}
 
 	private boolean celdasSonIguales(int fila, int col, int colContigua) {

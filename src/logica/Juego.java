@@ -41,7 +41,6 @@ public class Juego {
 	
 	public void moverAbajo() {
 		this.tablero.moverNumerosAbajo();
-		
 		puntaje = tablero.getPuntaje();
 	}
 	
