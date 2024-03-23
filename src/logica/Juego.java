@@ -8,6 +8,8 @@ public class Juego {
 	
 	public Juego(){
 		this.tablero = new Tablero(4);
+		this.tablero.agregarNumero();
+		this.tablero.agregarNumero();
 		System.out.println("Iniciando juego");
 	}
 	

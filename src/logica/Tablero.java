@@ -7,10 +7,12 @@ public class Tablero {
 	int[][] matriz;
 	int puntaje;
 
-	Tablero(int numCasillas) {
+	public Tablero(int numCasillas) {
 		this.matriz = new int[numCasillas][numCasillas];
-		this.agregarNumero();
-		this.agregarNumero();
+	}
+	
+	public Tablero(int[][] mat) {
+		this.matriz = mat;
 	}
 
 	private Point generarPosicion() {
@@ -198,9 +200,6 @@ public class Tablero {
 		return matriz[fila][col] != matriz[fila][contigua];
 	}
 	
-//	public String obtenerValor(int i, int j) {
-//		return this.matriz[i][j] != 0 ? Integer.toString(this.matriz[i][j]) : "";
-//	}
 	public int obtenerValor(int i, int j) {
 		return this.matriz[i][j];
 	}
@@ -214,4 +213,11 @@ public class Tablero {
 		return this.puntaje;
 	}
 
+	public int getSize() {
+		return this.matriz.length;
+	}
+	
+	public int[][] getMatriz() {
+		return this.matriz;
+	}
 }
