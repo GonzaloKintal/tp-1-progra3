@@ -28,21 +28,16 @@ public class Juego {
 	public void agregarNumero() {
 		this.tablero.agregarNumero();
 	}
-
-//	public void moverIzquierda() {
-//		this.tablero.moverNumerosIzquierda();	
-//		puntaje = tablero.getPuntaje();
-//	}
-//	
-//	public void moverDerecha() {
-//		this.tablero.moverNumerosDerecha();	
-//		puntaje = tablero.getPuntaje();
-//	}
 	
-	public void moverAbajo() {
-		this.tablero.moverNumerosAbajo();
-		puntaje = tablero.getPuntaje();
-	}
+	public void moverHorizontal(int direccion) {
+        this.tablero.moverHorizontal(direccion);
+        puntaje = tablero.getPuntaje();
+    }
+
+    public void moverVertical(int direccion) {
+        this.tablero.moverVertical(direccion);
+        puntaje = tablero.getPuntaje();
+    }
 	
 	public int getPuntaje() {
 		return this.puntaje;

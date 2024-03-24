@@ -81,18 +81,18 @@ public class Interfaz {
 			// Key Pressed method
 			public void keyPressed(KeyEvent e) {
 				// Check if an up key was pressed
-//				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//					juego.moverDerecha();
-//				}
-//				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//					juego.moverIzquierda();
-//				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					juego.moverHorizontal(1);	// Derecha
+				}
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					juego.moverHorizontal(-1);	// Izquierda
+				}
 				
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					juego.moverAbajo();
+					juego.moverVertical(1);		// Abajo
 				}
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-//					juego.moverArriba();
+					juego.moverVertical(-1);	// Arriba
 				}
 				
 				juego.agregarNumero();

@@ -88,33 +88,33 @@ public class TableroTest {
 	@Test
 	public void tableroMovedToTheRightIsEqual() {
 		this.tablero = new Tablero(matriz_init);
-		this.tablero.moverNumerosDerecha();
+		this.tablero.moverHorizontal(1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaALaDerecha));
 		
 		this.tablero = new Tablero(matriz_init2);
-		this.tablero.moverNumerosDerecha();
+		this.tablero.moverHorizontal(1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaALaDerecha2));
 	}
 	
 	@Test
 	public void tableroMovedToTheLeftIsEqual() {
 		this.tablero = new Tablero(matriz_init);
-		this.tablero.moverNumerosIzquierda();
+		this.tablero.moverHorizontal(-1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaALaIzquierda));
 		
 		this.tablero = new Tablero(matriz_init2);
-		this.tablero.moverNumerosIzquierda();
+		this.tablero.moverHorizontal(-1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaALaIzquierda2));
 	}
 	
 	@Test
 	public void tableroMovedDownIsEqual() {
 		this.tablero = new Tablero(matriz_init);
-		this.tablero.moverNumerosAbajo();
+		this.tablero.moverVertical(1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaAbajo));
 		
 		this.tablero = new Tablero(matriz_init2);
-		this.tablero.moverNumerosAbajo();
+		this.tablero.moverVertical(1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaAbajo2));
 	}
 
