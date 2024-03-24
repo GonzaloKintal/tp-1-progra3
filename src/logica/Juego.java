@@ -42,5 +42,19 @@ public class Juego {
 	public int getPuntaje() {
 		return this.puntaje;
 	}
+
+	
+
+	public boolean tableroTieneEspacio() {
+		return !tablero.estaLLeno();
+	}
+
+	public boolean jugadorGano() {
+		return tablero.hayGanador();
+	}
+
+	public boolean jugadorPerdio() {
+		return tablero.hayPerdedor();
+	}
 	
 }

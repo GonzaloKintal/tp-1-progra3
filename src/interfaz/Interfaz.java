@@ -76,31 +76,41 @@ public class Interfaz {
 
 		// Init juego
 		this.juego = new Juego(config.DIMENSION_TABLERO);
-		
+
 		frame.addKeyListener(new KeyAdapter() {
 			// Key Pressed method
 			public void keyPressed(KeyEvent e) {
 				// Check if an up key was pressed
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					juego.moverHorizontal(1);	// Derecha
+					juego.moverHorizontal(1); // Derecha
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					juego.moverHorizontal(-1);	// Izquierda
+					juego.moverHorizontal(-1); // Izquierda
 				}
-				
+
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					juego.moverVertical(1);		// Abajo
+					juego.moverVertical(1); // Abajo
 				}
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					juego.moverVertical(-1);	// Arriba
+					juego.moverVertical(-1); // Arriba
 				}
-				
-				juego.agregarNumero();
+				if (juego.tableroTieneEspacio()) {
+					juego.agregarNumero();
+				}
 				actualizarPantalla(panel);
 				actualizarPuntaje();
+				if(juego.jugadorGano()) {
+					System.out.print("gano");
+				}
+				if(juego.jugadorPerdio()) {
+					System.out.print("perdio");
+				}
 			}
-			
-		});
+
+		}
+
+		);
+
 		actualizarPantalla(panel);
 	}
 

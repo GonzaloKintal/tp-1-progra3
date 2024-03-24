@@ -49,31 +49,29 @@ public class Tablero {
 	private int esDosOCuatro() {
 		return dameNumeroRandom(10) > 7 ? 4 : 2;
 	}
-	
-	
+
 	// Métodos de movimiento genéricos
-	
+
 	public void moverHorizontal(int direccion) {
-        for (int fila = 0; fila < matriz.length; fila++) {
-            if (direccion == 1) {
-                recorrerColumnasDerIzq(fila);
-            } else {
-                recorrerColumnasIzqDer(fila);
-            }
-        }
-    }
-	
+		for (int fila = 0; fila < matriz.length; fila++) {
+			if (direccion == 1) {
+				recorrerColumnasDerIzq(fila);
+			} else {
+				recorrerColumnasIzqDer(fila);
+			}
+		}
+	}
+
 	public void moverVertical(int direccion) {
-        for (int col = 0; col < matriz.length; col++) {
-            if (direccion == 1) {
-                recorrerFilasAbajoArriba(col);
-            } else {
-                recorrerFilasArribaAbajo(col);
-            }
-        }
-    }
-	
-	
+		for (int col = 0; col < matriz.length; col++) {
+			if (direccion == 1) {
+				recorrerFilasAbajoArriba(col);
+			} else {
+				recorrerFilasArribaAbajo(col);
+			}
+		}
+	}
+
 	// Movimientos específicos
 
 	private void recorrerColumnasDerIzq(int fila) {
@@ -102,7 +100,6 @@ public class Tablero {
 		}
 	}
 
-
 	private void recorrerColumnasIzqDer(int fila) {
 		for (int col = 0; col < matriz.length; col++) {
 			movimientosIzqDer(fila, col);
@@ -129,7 +126,6 @@ public class Tablero {
 		}
 	}
 
-
 	private void recorrerFilasAbajoArriba(int col) {
 		for (int fila = matriz.length - 1; fila >= 0; fila--) {
 			movimientosAbajoArriba(fila, col);
@@ -142,7 +138,7 @@ public class Tablero {
 			if (estaVacio(fila, col) && estaOcupado(contigua, col)) {
 				switchCeldasVertical(fila, col, contigua);
 			}
-			
+
 			if (estaVacio(contigua, col))
 				continue;
 
@@ -158,21 +154,20 @@ public class Tablero {
 			yaSeSumo = true;
 		}
 	}
-	
-	
+
 	public void recorrerFilasArribaAbajo(int col) {
 		for (int fila = 0; fila < matriz.length; fila++) {
 			movimientosArribaAbajo(fila, col);
 		}
 	}
-	
+
 	public void movimientosArribaAbajo(int fila, int col) {
 		boolean yaSeSumo = false;
 		for (int contigua = fila + 1; contigua < matriz.length; contigua++) {
 			if (estaVacio(fila, col) && estaOcupado(contigua, col)) {
 				switchCeldasVertical(fila, col, contigua);
 			}
-			
+
 			if (estaVacio(contigua, col))
 				continue;
 
@@ -188,21 +183,20 @@ public class Tablero {
 			yaSeSumo = true;
 		}
 	}
-	
-	
+
 	private boolean celdasSonIgualesVertical(int fila, int col, int contigua) {
 		return matriz[fila][col] == matriz[contigua][col];
 	}
-	
+
 	private void switchCeldasVertical(int fila, int col, int contigua) {
 		matriz[fila][col] = matriz[contigua][col];
 		matriz[contigua][col] = 0;
 	}
-	
+
 	private boolean sonCeldasDistintasVertical(int fila, int col, int contigua) {
 		return matriz[fila][col] != matriz[contigua][col];
 	}
-	
+
 	private void moverCeldaAMiLadoVertical(int fila, int col, int contigua, int paso) {
 		int aux = matriz[contigua][col];
 		matriz[contigua][col] = 0;
@@ -214,7 +208,6 @@ public class Tablero {
 		matriz[contigua][col] = 0;
 		puntaje += matriz[fila][col];
 	}
-	
 
 	private boolean celdasSonIgualesHorizontal(int fila, int col, int colContigua) {
 		boolean existeCasilla1 = estaOcupado(fila, col);
@@ -226,7 +219,7 @@ public class Tablero {
 
 		return matriz[fila][col] == matriz[fila][colContigua];
 	}
-	
+
 	private void switchCeldasHorizontal(int fila, int col, int contigua) {
 		matriz[fila][col] = matriz[fila][contigua];
 		matriz[fila][contigua] = 0;
@@ -235,20 +228,19 @@ public class Tablero {
 	public boolean sonCeldasSonDistintasHorizontal(int fila, int col, int contigua) {
 		return matriz[fila][col] != matriz[fila][contigua];
 	}
-	
+
 	public void moverCeldaAMiLadoHorizontal(int fila, int col, int contigua, int lado) {
 		int aux = matriz[fila][contigua];
 		matriz[fila][contigua] = 0;
 		matriz[fila][col + lado] = aux;
 	}
-	
+
 	private void sumarCeldasHorizontal(int fila, int col, int colContigua) {
 		matriz[fila][col] += matriz[fila][colContigua];
 		matriz[fila][colContigua] = 0;
 		puntaje += matriz[fila][col];
 	}
 
-	
 	public boolean estaOcupado(int pos1, int pos2) {
 		return this.matriz[pos1][pos2] != 0;
 	}
@@ -277,4 +269,71 @@ public class Tablero {
 	public int[][] getMatriz() {
 		return this.matriz;
 	}
+	public boolean hayPerdedor() {
+		return estaLLeno() && noHayPosiblesMovimientos();
+	}
+
+	public boolean estaLLeno() {
+		for (int fila = 0; fila < matriz.length; fila++) {
+			for (int col = 0; col < matriz.length; col++) {
+				if (estaVacio(fila, col)) {
+					return false;
+				}
+			}
+
+		}
+		return true;
+	}
+
+	private boolean noHayPosiblesMovimientos() {
+		for (int fila = 0; fila < matriz.length; fila++) {
+			for (int col = 0; col < matriz.length; col++) {
+				if (tieneMovimiento(fila, col)) {
+					return false;
+				}
+			}
+
+		}
+		return true;
+	}
+
+	private boolean tieneMovimiento(int fila, int col) {
+		if (estaEnRango(col + 1) && matriz[fila][col] == matriz[fila][col + 1]) {
+			return true;
+		}
+		if (estaEnRango(col - 1) && matriz[fila][col] == matriz[fila][col - 1]) {
+			return true;
+		}
+		if (estaEnRango(fila + 1) && matriz[fila][col] == matriz[fila + 1][col]) {
+			return true;
+		}
+		if (estaEnRango(fila - 1) && matriz[fila][col] == matriz[fila - 1][col]) {
+			return true;
+		}
+		return false;
+
+	}
+
+	private boolean estaEnRango(int pos) {
+		return pos < matriz.length && pos >= 0;
+	}
+
+	public boolean hayGanador() {
+		for (int fila = 0; fila < matriz.length; fila++) {
+			for (int col = 0; col < matriz.length; col++) {
+				if (condicionGanar(fila, col)) {
+					return true;
+				}
+			}
+
+		}
+		return false;
+	}
+
+	private boolean condicionGanar(int fila, int col) {
+		return matriz[fila][col] == 2048;
+	}
+
+	
+
 }
