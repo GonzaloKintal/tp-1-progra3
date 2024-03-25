@@ -141,9 +141,9 @@ public class TableroTest {
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaArriba));
 		
 		// ESTE NO PASA (revisarlo)
-//		this.tablero = new Tablero(matriz_init2);
-//		this.tablero.moverVertical(-1);
-//		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaArriba2));
+		this.tablero = new Tablero(matriz_init2);
+		this.tablero.moverVertical(-1);
+		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaArriba2));
 	}
 
 	// Utility methods
@@ -164,7 +164,4 @@ public class TableroTest {
 		return true;
 	}
 	
-//	private toString(int[][] matriz) {
-//		
-//	}
 }
