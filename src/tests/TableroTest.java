@@ -9,23 +9,23 @@ import logica.Tablero;
 public class TableroTest {
 	int[][] matriz_init = {
 			{ 0, 2, 0, 2 },
-			{ 2, 2, 2, 2 },
+			{ 2, 2, 4, 4 },
 			{ 0, 0, 4, 4 }, 
 			{ 0, 2, 0, 0 }
-			};
+	};
 	
 	int[][] matrizMovidaAbajo = {
 			{ 0, 0, 0, 0 },
 			{ 0, 0, 0, 0 },
-			{ 0, 2, 2, 4 },
-			{ 2, 4, 4, 4 }, 
+			{ 0, 2, 0, 2 },
+			{ 2, 4, 8, 8 }, 
 	};
 	
 	
 	
 	int[][] matrizMovidaArriba = {
-			{ 2, 4, 2, 4 },
-			{ 0, 2, 4, 4 },
+			{ 2, 4, 8, 2 },
+			{ 0, 2, 0, 8 },
 			{ 0, 0, 0, 0 }, 
 			{ 0, 0, 0, 0 }
 	};
@@ -34,14 +34,14 @@ public class TableroTest {
 	
 	int[][] matrizMovidaALaDerecha = {
 			{ 0, 0, 0, 4 },
-			{ 0, 0, 4, 4 },
+			{ 0, 0, 4, 8 },
 			{ 0, 0, 0, 8 },
 			{ 0, 0, 0, 2 }, 
 			};
 	
 	int[][] matrizMovidaALaIzquierda = {
 			{ 4, 0, 0, 0 },
-			{ 4, 4, 0, 0 },
+			{ 4, 8, 0, 0 },
 			{ 8, 0, 0, 0 },
 			{ 2, 0, 0, 0 }, 
 	};
@@ -163,4 +163,8 @@ public class TableroTest {
 
 		return true;
 	}
+	
+//	private toString(int[][] matriz) {
+//		
+//	}
 }
