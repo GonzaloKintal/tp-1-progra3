@@ -55,6 +55,7 @@ public class Interfaz {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		// Config Frame
 		frame = new JFrame();
 		frame.setTitle("2048");
@@ -64,10 +65,25 @@ public class Interfaz {
 
 		// Config panel (Tablero)
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(230, 230, 230));
 		frame.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(config.DIMENSION_TABLERO, config.DIMENSION_TABLERO, 0, 0));
+		panel.setLayout(new GridLayout(4, 4, 4, 4));	// Padding
+		
+		// Paneles para bordes derecho e izquierdo
+        JPanel leftHeaderPanel = new JPanel(new BorderLayout());
+        JLabel leftHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
+        leftHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        leftHeaderPanel.add(leftHeaderLabel, BorderLayout.CENTER);
+        frame.getContentPane().add(leftHeaderPanel, BorderLayout.WEST);
 
-		// Agrego un JLabel para mostrar el puntaje en el encabezado
+        JPanel rightHeaderPanel = new JPanel(new BorderLayout());
+        JLabel rightHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
+        rightHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        rightHeaderPanel.add(rightHeaderLabel, BorderLayout.CENTER);
+        frame.getContentPane().add(rightHeaderPanel, BorderLayout.EAST);
+
+		// Panel para el score
 		JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		scoreLabel = new JLabel("Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -126,14 +142,18 @@ public class Interfaz {
 				if (valorCasilla != 0) {
 					int valor = (int) log2(valorCasilla);
 					label.setBackground(config.COLORES[valor - 1]);
-					label.setForeground(Color.BLACK);
+					if (valorCasilla >= 64) {
+						label.setForeground(Color.WHITE);
+					} else {
+						label.setForeground(Color.BLACK);
+					}
 				} else {
 					label.setForeground(new Color(240, 240, 240));
 				}
 
 				label.setOpaque(true);
-				label.setFont(new Font("Comic Sans", Font.PLAIN, 20));
-				label.setBorder(new LineBorder(Color.BLACK));
+				label.setFont(new Font("Comic Sans", Font.BOLD, 25));
+//				label.setBorder(new LineBorder(Color.BLACK));
 				label.setHorizontalAlignment(SwingConstants.CENTER);
 				panel.add(label);
 			}
