@@ -277,6 +277,7 @@ public class Tablero {
 	public int[][] getMatriz() {
 		return this.matriz;
 	}
+
 	public boolean hayPerdedor() {
 		return estaLLeno() && noHayPosiblesMovimientos();
 	}
@@ -306,16 +307,16 @@ public class Tablero {
 	}
 
 	private boolean tieneMovimiento(int fila, int col) {
-		if (estaEnRango(col + 1) && matriz[fila][col] == matriz[fila][col + 1]) {
+		if (estaEnRango(col + 1) && celdasSonIgualesHorizontal(fila, col, col + 1)) {
 			return true;
 		}
-		if (estaEnRango(col - 1) && matriz[fila][col] == matriz[fila][col - 1]) {
+		if (estaEnRango(col - 1) && celdasSonIgualesHorizontal(fila, col, col - 1)) {
 			return true;
 		}
-		if (estaEnRango(fila + 1) && matriz[fila][col] == matriz[fila + 1][col]) {
+		if (estaEnRango(fila + 1) && celdasSonIgualesVertical(fila, col, fila + 1)) {
 			return true;
 		}
-		if (estaEnRango(fila - 1) && matriz[fila][col] == matriz[fila - 1][col]) {
+		if (estaEnRango(fila - 1) && celdasSonIgualesVertical(fila, col, fila - 1)) {
 			return true;
 		}
 		return false;
@@ -341,7 +342,5 @@ public class Tablero {
 	private boolean condicionGanar(int fila, int col) {
 		return matriz[fila][col] == 2048;
 	}
-
-	
 
 }
