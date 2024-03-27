@@ -43,10 +43,6 @@ public class Juego {
 		return this.puntaje;
 	}
 
-	public boolean tableroTieneEspacio() {
-		return !tablero.estaLLeno();
-	}
-
 	public boolean jugadorGano() {
 		return tablero.hayGanador();
 	}

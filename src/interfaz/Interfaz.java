@@ -138,11 +138,9 @@ public class Interfaz {
 				if (juego.posibleMovmientoArriba() && e.getKeyCode() == KeyEvent.VK_UP) {
 					juego.moverVertical(-1); // Arriba
 					lastMovementLabel.setText("↑");
+					juego.agregarNumero();// Arriba
 				}
 
-				if (juego.tableroTieneEspacio()) {
-					juego.agregarNumero();
-				}
 				
 				if (juego.jugadorGano()) {
 					System.out.print("gano");
