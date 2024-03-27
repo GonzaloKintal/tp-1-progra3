@@ -343,4 +343,118 @@ public class Tablero {
 		return matriz[fila][col] == 2048;
 	}
 
+	public boolean posibleMovimientoDerecha() {
+		for (int fila = 0; fila < matriz.length; fila++) {
+			for (int col = 0; col < matriz.length - 1; col++) {
+				if (!estaOcupado(fila, col)) {
+					continue;
+				}
+				if (posibleMovimientoDerecha(fila, col)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private boolean posibleMovimientoDerecha(int fila, int col) {
+		if (estaEnRango(col + 1) && !estaOcupado(fila, col + 1)) {
+			return true;
+		}
+		if (estaEnRango(col + 1) && celdasSonIgualesHorizontal(fila, col, col + 1)) {
+			return true;
+		}
+		if (!estaEnRango(col + 1)) {
+			return false;
+		}
+		return posibleMovimientoDerecha(fila, col + 1);
+
+	}
+
+	public boolean posibleMovimientoIzquierda() {
+		for (int fila = 0; fila < matriz.length; fila++) {
+			for (int col = matriz.length - 1; col >= 1; col--) {
+				if (!estaOcupado(fila, col)) {
+					continue;
+				}
+				if (posibleMovimientoIzquierda(fila, col)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
+
+	private boolean posibleMovimientoIzquierda(int fila, int col) {
+		if (estaEnRango(col - 1) && !estaOcupado(fila, col - 1)) {
+			return true;
+		}
+		if (estaEnRango(col - 1) && celdasSonIgualesHorizontal(fila, col, col - 1)) {
+			return true;
+		}
+		if (!estaEnRango(col - 1)) {
+			return false;
+		}
+		return posibleMovimientoIzquierda(fila, col - 1);
+	}
+
+	public boolean posibleMovimientoAbajo() {
+		for (int fila = 0; fila < matriz.length - 1; fila++) {
+			for (int col = 0; col < matriz.length; col++) {
+				if (!estaOcupado(fila, col)) {
+					continue;
+				}
+				if (posibleMovimientoAbajo(fila, col)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private boolean posibleMovimientoAbajo(int fila, int col) {
+		if (estaEnRango(fila + 1) && !estaOcupado(fila + 1, col)) {
+			return true;
+		}
+		if (estaEnRango(fila + 1) && celdasSonIgualesVertical(fila, col, fila + 1)) {
+			return true;
+		}
+		if (!estaEnRango(fila + 1)) {
+			return false;
+		}
+		return posibleMovimientoAbajo(fila + 1, col);
+	}
+
+	public boolean posibleMovimientoArriba() {
+		for (int fila = matriz.length - 1; fila >= 1; fila--) {
+			for (int col = 0; col < matriz.length; col++) {
+				if (!estaOcupado(fila, col)) {
+					continue;
+				}
+				if (posibleMovimientoArriba(fila, col)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
+
+	private boolean posibleMovimientoArriba(int fila, int col) {
+		if (estaEnRango(fila - 1) && !estaOcupado(fila - 1, col)) {
+			return true;
+		}
+		if (estaEnRango(fila - 1) && celdasSonIgualesVertical(fila, col, fila - 1)) {
+			return true;
+		}
+		if (!estaEnRango(fila - 1)) {
+			return false;
+		}
+		return posibleMovimientoArriba(fila - 1, col);
+	}
 }
