@@ -60,7 +60,7 @@ public class Interfaz {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		// Config Frame
 		frame = new JFrame();
 		frame.setTitle("2048");
@@ -68,40 +68,40 @@ public class Interfaz {
 		frame.setBounds(100, 100, config.WIDTH, config.HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
+		frame.setLocation(dim.width / 2 - 500 / 2, dim.height / 2 - 500 / 2);
 
 		// Config panel (Tablero)
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(230, 230, 230));
 		frame.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(config.DIMENSION_TABLERO, config.DIMENSION_TABLERO, 0, 0));
-		panel.setLayout(new GridLayout(4, 4, 4, 4));	// Padding
-		
-		// Paneles para bordes derecho e izquierdo
-        JPanel leftHeaderPanel = new JPanel(new BorderLayout());
-        JLabel leftHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
-        leftHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        leftHeaderPanel.add(leftHeaderLabel, BorderLayout.CENTER);
-        frame.getContentPane().add(leftHeaderPanel, BorderLayout.WEST);
+		panel.setLayout(new GridLayout(4, 4, 4, 4)); // Padding
 
-        JPanel rightHeaderPanel = new JPanel(new BorderLayout());
-        JLabel rightHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
-        rightHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        rightHeaderPanel.add(rightHeaderLabel, BorderLayout.CENTER);
-        frame.getContentPane().add(rightHeaderPanel, BorderLayout.EAST);
+		// Paneles para bordes derecho e izquierdo
+		JPanel leftHeaderPanel = new JPanel(new BorderLayout());
+		JLabel leftHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
+		leftHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		leftHeaderPanel.add(leftHeaderLabel, BorderLayout.CENTER);
+		frame.getContentPane().add(leftHeaderPanel, BorderLayout.WEST);
+
+		JPanel rightHeaderPanel = new JPanel(new BorderLayout());
+		JLabel rightHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
+		rightHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		rightHeaderPanel.add(rightHeaderLabel, BorderLayout.CENTER);
+		frame.getContentPane().add(rightHeaderPanel, BorderLayout.EAST);
 
 		// Panel para el score
 		JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		scoreLabel = new JLabel("Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		
+
 		nameLabel = new JLabel(this.nombre);
 		nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		
+
 		headerPanel.add(scoreLabel);
 		headerPanel.add(nameLabel);
 		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
-		
+
 		// Init juego
 		this.juego = new Juego(config.DIMENSION_TABLERO);
 
@@ -109,28 +109,29 @@ public class Interfaz {
 			// Key Pressed method
 			public void keyPressed(KeyEvent e) {
 				// Check if an up key was pressed
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					juego.moverHorizontal(1); // Derecha
+				if (juego.posibleMovimientoDerecha() && e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					juego.moverHorizontal(1);
+					juego.agregarNumero();// Derecha
 				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					juego.moverHorizontal(-1); // Izquierda
+				if (juego.posibleMovimientoIzquierda() && e.getKeyCode() == KeyEvent.VK_LEFT) {
+					juego.moverHorizontal(-1);
+					juego.agregarNumero();// Izquierda
 				}
 
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					juego.moverVertical(1); // Abajo
+				if (juego.posibleMovimientoAbajo() && e.getKeyCode() == KeyEvent.VK_DOWN) {
+					juego.moverVertical(1);
+					juego.agregarNumero();// Abajo
 				}
-				if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (juego.posibleMovmientoArriba() && e.getKeyCode() == KeyEvent.VK_UP) {
 					juego.moverVertical(-1); // Arriba
-				}
-				if (juego.tableroTieneEspacio()) {
 					juego.agregarNumero();
 				}
 				actualizarPantalla(panel);
 				actualizarPuntaje();
-				if(juego.jugadorGano()) {
+				if (juego.jugadorGano()) {
 					System.out.print("gano");
 				}
-				if(e.getKeyCode() == KeyEvent.VK_1) {
+				if (e.getKeyCode() == KeyEvent.VK_1) {
 					frame.dispose();
 					GameOver go = new GameOver(nombre, juego.getPuntaje());
 					go.gameOver(nombre, juego.getPuntaje());
