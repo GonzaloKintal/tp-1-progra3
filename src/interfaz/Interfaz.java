@@ -26,18 +26,19 @@ public class Interfaz {
 	private JFrame frame;
 	private Juego juego;
 	private Config config = new Config();
+	public String nombre;
 
 	// Agrego un JLabel para mostrar el score
-	private JLabel scoreLabel;
+	private JLabel scoreLabel,nameLabel;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void Interfaz() {
+	public static void Interfaz(String nombre) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Interfaz window = new Interfaz();
+					Interfaz window = new Interfaz(nombre);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +50,8 @@ public class Interfaz {
 	/**
 	 * Create the application.
 	 */
-	public Interfaz() {
+	public Interfaz(String nombre) {
+		this.nombre = nombre;
 		initialize();
 	}
 
@@ -91,9 +93,14 @@ public class Interfaz {
 		JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		scoreLabel = new JLabel("Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		
+		nameLabel = new JLabel(this.nombre);
+		nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		
 		headerPanel.add(scoreLabel);
+		headerPanel.add(nameLabel);
 		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
-
+		
 		// Init juego
 		this.juego = new Juego(config.DIMENSION_TABLERO);
 
@@ -122,8 +129,10 @@ public class Interfaz {
 				if(juego.jugadorGano()) {
 					System.out.print("gano");
 				}
-				if(juego.jugadorPerdio()) {
-					System.out.print("perdio");
+				if(e.getKeyCode() == KeyEvent.VK_1) {
+					frame.dispose();
+					GameOver go = new GameOver(nombre);
+					go.gameOver(nombre);
 				}
 			}
 		}

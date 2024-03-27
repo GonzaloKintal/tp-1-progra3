@@ -4,26 +4,33 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
+import javax.swing.JLabel;
 import java.awt.Dimension;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 
-public class Welcome {
+public class GameOver {
 
 	private JFrame frame;
-	private JTextField textField;
-
+	public String nombre;
+	
+	/**
+	 * Create the application.
+	 */
+	public GameOver(String nombre) {
+		this.nombre = nombre;
+		initialize();
+	}
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void gameOver(String n) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Welcome window = new Welcome();
+					GameOver window = new GameOver(n);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,12 +39,6 @@ public class Welcome {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public Welcome() {
-		initialize();
-	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -47,28 +48,31 @@ public class Welcome {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
 		
-		textField = new JTextField();
-		textField.setBounds(172, 57, 86, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		JLabel lblNewLabel = new JLabel("perdiste " + this.nombre);
+		lblNewLabel.setBounds(162, 93, 114, 60);
+		frame.getContentPane().add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(172, 111, 89, 23);
-		frame.getContentPane().add(btnNewButton);
-		
+		JButton btnNewButton = new JButton("Jugar de nuevo");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombre = textField.getText();
-				if(nombre.length() <= 0) return;
-				
 				frame.dispose();
 				Interfaz interfaz = new Interfaz(nombre);
 				interfaz.Interfaz(nombre);
 			}
-		});		
+		});
+		btnNewButton.setBounds(139, 164, 147, 23);
+		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnSalirDelJuego = new JButton("salir del juego");
+		btnSalirDelJuego.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
+		btnSalirDelJuego.setBounds(139, 202, 147, 23);
+		frame.getContentPane().add(btnSalirDelJuego);
 	}
 }
