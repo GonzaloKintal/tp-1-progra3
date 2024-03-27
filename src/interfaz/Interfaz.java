@@ -21,6 +21,7 @@ import utils.Config;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.ComponentOrientation;
 
 public class Interfaz {
 
@@ -91,15 +92,23 @@ public class Interfaz {
         frame.getContentPane().add(rightHeaderPanel, BorderLayout.EAST);
 
 		// Panel para el score
-		JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel headerPanel = new JPanel();
 		scoreLabel = new JLabel("Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		nameLabel = new JLabel(this.nombre);
+		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+				
+		JLabel lastMovementLabel = new JLabel("");
+		lastMovementLabel.setVerticalAlignment(SwingConstants.TOP);
+		lastMovementLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		
-		headerPanel.add(scoreLabel);
-		headerPanel.add(nameLabel);
+		headerPanel.setLayout(new BorderLayout(0, 0));
+		headerPanel.add(scoreLabel, BorderLayout.WEST);
+		headerPanel.add(nameLabel, BorderLayout.CENTER);
+		headerPanel.add(lastMovementLabel, BorderLayout.EAST);
+		
 		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
 		
 		// Init juego
@@ -111,16 +120,20 @@ public class Interfaz {
 				// Check if an up key was pressed
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					juego.moverHorizontal(1); // Derecha
+					lastMovementLabel.setText("→");					
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					juego.moverHorizontal(-1); // Izquierda
+					lastMovementLabel.setText("←");					
 				}
 
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					juego.moverVertical(1); // Abajo
+					lastMovementLabel.setText("↓");
 				}
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					juego.moverVertical(-1); // Arriba
+					lastMovementLabel.setText("↑");
 				}
 				if (juego.tableroTieneEspacio()) {
 					juego.agregarNumero();
