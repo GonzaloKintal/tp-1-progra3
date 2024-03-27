@@ -143,16 +143,18 @@ public class Interfaz {
 				if (juego.tableroTieneEspacio()) {
 					juego.agregarNumero();
 				}
-				actualizarPantalla(panel);
-				actualizarPuntaje();
+				
 				if (juego.jugadorGano()) {
 					System.out.print("gano");
 				}
-				if (e.getKeyCode() == KeyEvent.VK_1) {
+				
+				if (juego.jugadorPerdio()) {
 					frame.dispose();
 					GameOver go = new GameOver(nombre, juego.getPuntaje());
 					go.gameOver(nombre, juego.getPuntaje());
 				}
+				actualizarPantalla(panel);
+				actualizarPuntaje();
 			}
 		}
 
