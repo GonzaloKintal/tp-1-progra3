@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,7 +30,7 @@ public class Interfaz {
 	public String nombre;
 
 	// Agrego un JLabel para mostrar el score
-	private JLabel scoreLabel,nameLabel;
+	private JLabel scoreLabel, nameLabel;
 
 	/**
 	 * Launch the application.
@@ -131,8 +132,8 @@ public class Interfaz {
 				}
 				if(e.getKeyCode() == KeyEvent.VK_1) {
 					frame.dispose();
-					GameOver go = new GameOver(nombre);
-					go.gameOver(nombre);
+					GameOver go = new GameOver(nombre, juego.getPuntaje());
+					go.gameOver(nombre, juego.getPuntaje());
 				}
 			}
 		}
