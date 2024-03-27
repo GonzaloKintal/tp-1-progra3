@@ -2,10 +2,12 @@ package interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,7 +33,7 @@ public class Interfaz {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void Interfaz() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -62,6 +64,8 @@ public class Interfaz {
 		frame.setResizable(false);
 		frame.setBounds(100, 100, config.WIDTH, config.HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
 
 		// Config panel (Tablero)
 		JPanel panel = new JPanel();
@@ -122,7 +126,6 @@ public class Interfaz {
 					System.out.print("perdio");
 				}
 			}
-
 		}
 
 		);
