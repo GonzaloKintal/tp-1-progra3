@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -60,13 +62,13 @@ public class GameOver {
 		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
 		
 		JLabel lblNewLabel = new JLabel("Perdiste " + this.nombre);
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel.setBounds(162, 93, 300, 60);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel.setBounds(145, 60, 300, 60);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblScoreLabel = new JLabel("Score: " + this.score);
-		lblScoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblScoreLabel.setBounds(162, 120, 300, 60);
+		lblScoreLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		lblScoreLabel.setBounds(145, 100, 300, 60);
 		frame.getContentPane().add(lblScoreLabel);
 		
 		JButton btnVolverAJugar = new JButton("JUGAR DE NUEVO");
@@ -79,8 +81,9 @@ public class GameOver {
 				interfaz.Interfaz(nombre);
 			}
 		});
-		btnVolverAJugar.setBounds(30, 250, 200, 70);
+		btnVolverAJugar.setBounds(30, 210, 200, 70);
 		frame.getContentPane().add(btnVolverAJugar);
+		
 		
 		JButton btnSalirDelJuego = new JButton("SALIR DEL JUEGO");
 		btnSalirDelJuego.setFont(new Font("Arial", Font.BOLD, 16));
@@ -90,7 +93,14 @@ public class GameOver {
 				frame.dispose();
 			}
 		});
-		btnSalirDelJuego.setBounds(250, 250, 200, 70);
+		btnSalirDelJuego.setBounds(255, 210, 200, 70);
 		frame.getContentPane().add(btnSalirDelJuego);
+		
+		
+		JLabel lblImage = new JLabel();
+		lblImage.setIcon(
+				new ImageIcon("C:\\Users\\kinta\\eclipse-workspace\\TrabajoPráctico1\\src\\utils\\2048-image.png"));
+		lblImage.setBounds(40, 320, 368, 130);
+		frame.getContentPane().add(lblImage);
 	}
 }

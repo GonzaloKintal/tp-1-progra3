@@ -93,7 +93,7 @@ public class Interfaz {
 
 		// Panel para el score
 		JPanel headerPanel = new JPanel();
-		scoreLabel = new JLabel("Score: 0");
+		scoreLabel = new JLabel(" Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
 		nameLabel = new JLabel(this.nombre);
@@ -102,8 +102,10 @@ public class Interfaz {
 
 		JLabel lastMovementLabel = new JLabel("");
 		lastMovementLabel.setVerticalAlignment(SwingConstants.TOP);
-		lastMovementLabel.setFont(new Font("Arial", Font.BOLD, 30));
-
+		lastMovementLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		
+		
+		headerPanel.setPreferredSize(new Dimension(config.WIDTH, 30));
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		headerPanel.add(scoreLabel, BorderLayout.WEST);
 		headerPanel.add(nameLabel, BorderLayout.CENTER);
@@ -120,24 +122,24 @@ public class Interfaz {
 				// Check if an up key was pressed
 				if (juego.posibleMovimientoDerecha() && e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					juego.moverHorizontal(1);
-					lastMovementLabel.setText("→");
+					lastMovementLabel.setText("→ ");
 					juego.agregarNumero();// Derecha
 				}
 				if (juego.posibleMovimientoIzquierda() && e.getKeyCode() == KeyEvent.VK_LEFT) {
 					juego.moverHorizontal(-1);
-					lastMovementLabel.setText("←");
+					lastMovementLabel.setText("← ");
 					juego.agregarNumero();// Izquierda
 				}
 
 				if (juego.posibleMovimientoAbajo() && e.getKeyCode() == KeyEvent.VK_DOWN) {
 					juego.moverVertical(1);
-					lastMovementLabel.setText("↓");
+					lastMovementLabel.setText("↓ ");
 					juego.agregarNumero();// Abajo
 				}
 
 				if (juego.posibleMovmientoArriba() && e.getKeyCode() == KeyEvent.VK_UP) {
 					juego.moverVertical(-1); // Arriba
-					lastMovementLabel.setText("↑");
+					lastMovementLabel.setText("↑ ");
 					juego.agregarNumero();// Arriba
 				}
 
@@ -146,7 +148,7 @@ public class Interfaz {
 					System.out.print("gano");
 				}
 				
-				if (juego.jugadorPerdio()) {
+				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_1) {
 					frame.dispose();
 					GameOver go = new GameOver(nombre, juego.getPuntaje());
 					go.gameOver(nombre, juego.getPuntaje());
@@ -197,7 +199,7 @@ public class Interfaz {
 
 	private void actualizarPuntaje() {
 		int puntaje = juego.getPuntaje();
-		scoreLabel.setText("Score: " + puntaje);
+		scoreLabel.setText(" Score: " + puntaje);
 	}
 
 	private static double log2(int x) {
