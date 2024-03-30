@@ -5,12 +5,6 @@ import java.util.Random;
 
 public class Tablero {
 	int[][] matriz;
-//	int[][] matriz = {
-//			{ 2, 4, 0, 2 },
-//			{ 2, 2, 4, 8 },
-//			{ 4, 0, 0, 4 }, 
-//			{ 4, 0, 2, 2 }
-//	};
 	int puntaje;
 
 	public Tablero(int numCasillas) {

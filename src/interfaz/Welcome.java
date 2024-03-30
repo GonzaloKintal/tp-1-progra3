@@ -2,6 +2,7 @@ package interfaz;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -65,6 +66,7 @@ public class Welcome {
 		textField = new JTextField();
 		textField.setBounds(90, 110, 300, 40);
 		textField.setFont(new Font("Arial", Font.BOLD, 20));
+		textField.setMargin(new Insets(0, 5, 0, 0));
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 

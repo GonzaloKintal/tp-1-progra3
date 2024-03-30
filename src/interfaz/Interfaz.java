@@ -96,9 +96,9 @@ public class Interfaz {
 		scoreLabel = new JLabel(" Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-		nameLabel = new JLabel(this.nombre);
-		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+//		nameLabel = new JLabel(this.nombre);							?
+//		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);		?
+//		nameLabel.setFont(new Font("Arial", Font.BOLD, 20));			?
 
 		JLabel lastMovementLabel = new JLabel("");
 		lastMovementLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -108,7 +108,7 @@ public class Interfaz {
 		headerPanel.setPreferredSize(new Dimension(config.WIDTH, 30));
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		headerPanel.add(scoreLabel, BorderLayout.WEST);
-		headerPanel.add(nameLabel, BorderLayout.CENTER);
+//		headerPanel.add(nameLabel, BorderLayout.CENTER); ?
 		headerPanel.add(lastMovementLabel, BorderLayout.EAST);
 
 		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
@@ -144,11 +144,13 @@ public class Interfaz {
 				}
 
 				
-				if (juego.jugadorGano()) {
-					System.out.print("gano");
+				if (juego.jugadorGano() || e.getKeyCode() == KeyEvent.VK_1) {
+					frame.dispose();
+					Win w = new Win(nombre, juego.getPuntaje());
+					w.win(nombre, juego.getPuntaje());
 				}
 				
-				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_1) {
+				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_2) {
 					frame.dispose();
 					GameOver go = new GameOver(nombre, juego.getPuntaje());
 					go.gameOver(nombre, juego.getPuntaje());
