@@ -9,11 +9,14 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import logica.Juego;
@@ -66,15 +69,17 @@ public class Interfaz {
 		frame = new JFrame();
 		frame.setTitle("2048");
 		frame.setResizable(false);
-		frame.setBounds(100, 100, config.WIDTH, config.HEIGHT);
+		frame.setBounds(100, 100, config.WIDTH + 300, config.HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width / 2 - 500 / 2, dim.height / 2 - 500 / 2);
+		frame.setLocation(dim.width / 2 - 400, dim.height / 2 - 500 / 2);
+
+		// Panel juego
+		JPanel panelJuego = new JPanel(new BorderLayout());
 
 		// Config panel (Tablero)
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(230, 230, 230));
-		frame.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(config.DIMENSION_TABLERO, config.DIMENSION_TABLERO, 0, 0));
 		panel.setLayout(new GridLayout(4, 4, 4, 4)); // Padding
 
@@ -83,35 +88,42 @@ public class Interfaz {
 		JLabel leftHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
 		leftHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		leftHeaderPanel.add(leftHeaderLabel, BorderLayout.CENTER);
-		frame.getContentPane().add(leftHeaderPanel, BorderLayout.WEST);
 
 		JPanel rightHeaderPanel = new JPanel(new BorderLayout());
 		JLabel rightHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
 		rightHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		rightHeaderPanel.add(rightHeaderLabel, BorderLayout.CENTER);
-		frame.getContentPane().add(rightHeaderPanel, BorderLayout.EAST);
 
 		// Panel para el score
 		JPanel headerPanel = new JPanel();
 		scoreLabel = new JLabel(" Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-//		nameLabel = new JLabel(this.nombre);							?
-//		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);		?
-//		nameLabel.setFont(new Font("Arial", Font.BOLD, 20));			?
-
 		JLabel lastMovementLabel = new JLabel("");
 		lastMovementLabel.setVerticalAlignment(SwingConstants.TOP);
 		lastMovementLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		
-		
+
 		headerPanel.setPreferredSize(new Dimension(config.WIDTH, 30));
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		headerPanel.add(scoreLabel, BorderLayout.WEST);
-//		headerPanel.add(nameLabel, BorderLayout.CENTER); ?
 		headerPanel.add(lastMovementLabel, BorderLayout.EAST);
 
-		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
+		panelJuego.add(panel);
+		panelJuego.add(headerPanel, BorderLayout.NORTH);
+		panelJuego.add(leftHeaderPanel, BorderLayout.WEST);
+		panelJuego.add(rightHeaderPanel, BorderLayout.EAST);
+
+		frame.getContentPane().add(panelJuego);
+
+		// Panel para el ranking
+		JPanel panelRanking = new JPanel();
+		panelRanking.setBackground(Color.WHITE);
+
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelRanking, panelJuego);
+		splitPane.setResizeWeight(1.0);
+		splitPane.setDividerSize(0);
+
+		frame.getContentPane().add(splitPane);
 
 		// Init juego
 		this.juego = new Juego(config.DIMENSION_TABLERO);
@@ -138,18 +150,17 @@ public class Interfaz {
 				}
 
 				if (juego.posibleMovmientoArriba() && e.getKeyCode() == KeyEvent.VK_UP) {
-					juego.moverVertical(-1); // Arriba
+					juego.moverVertical(-1);
 					lastMovementLabel.setText("↑ ");
 					juego.agregarNumero();// Arriba
 				}
 
-				
 				if (juego.jugadorGano() || e.getKeyCode() == KeyEvent.VK_1) {
 					frame.dispose();
 					Win w = new Win(nombre, juego.getPuntaje());
 					w.win(nombre, juego.getPuntaje());
 				}
-				
+
 				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_2) {
 					frame.dispose();
 					GameOver go = new GameOver(nombre, juego.getPuntaje());
@@ -188,7 +199,6 @@ public class Interfaz {
 
 				label.setOpaque(true);
 				label.setFont(new Font("Comic Sans", Font.BOLD, 25));
-//				label.setBorder(new LineBorder(Color.BLACK));
 				label.setHorizontalAlignment(SwingConstants.CENTER);
 				panel.add(label);
 			}
