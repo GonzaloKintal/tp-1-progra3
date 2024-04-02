@@ -96,7 +96,6 @@ public class Welcome {
 
 				frame.dispose();
 				Interfaz interfaz = new Interfaz(nombre);
-				interfaz.Interfaz(nombre);
 			}
 		});
 	}

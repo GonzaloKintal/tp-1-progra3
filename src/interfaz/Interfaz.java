@@ -35,14 +35,7 @@ public class Interfaz {
 	 */
 	public static void Interfaz(String nombre) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Interfaz window = new Interfaz(nombre);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			public void run() {}
 		});
 	}
 
