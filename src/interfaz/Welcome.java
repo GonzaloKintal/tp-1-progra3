@@ -2,6 +2,7 @@ package interfaz;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
@@ -77,8 +78,10 @@ public class Welcome {
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblImage = new JLabel();
-		lblImage.setIcon(
-				new ImageIcon("C:\\Users\\kinta\\eclipse-workspace\\TrabajoPráctico1\\src\\utils\\2048-image.png"));
+		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
+		
+		lblImage.setIcon(new ImageIcon(img));
+				
 		lblImage.setBounds(40, 320, 368, 130);
 		frame.getContentPane().add(lblImage);
 
