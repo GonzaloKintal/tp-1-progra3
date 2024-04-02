@@ -1,7 +1,5 @@
 package logica;
 
-//import logica.Tablero;
-
 public class Juego {
 	Tablero tablero;
 	private int puntaje;
@@ -11,6 +9,15 @@ public class Juego {
 		this.tablero.agregarNumero();
 		this.tablero.agregarNumero();
 		System.out.println("Iniciando juego");
+		
+		Archivo ar= new Archivo();
+		String a1 = ar.leerTxt();
+		System.out.println(a1);
+		
+		ar.escribirTxt("a");
+		
+		String a2 = ar.leerTxt();
+		System.out.println(a2);
 	}
 
 	public int getTamañoTablero() {

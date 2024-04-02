@@ -4,27 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import logica.Juego;
 import utils.Config;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.ComponentOrientation;
 
 public class Interfaz {
 
@@ -34,7 +28,7 @@ public class Interfaz {
 	public String nombre;
 
 	// Agrego un JLabel para mostrar el score
-	private JLabel scoreLabel, nameLabel;
+	private JLabel scoreLabel;
 
 	/**
 	 * Launch the application.
@@ -58,6 +52,7 @@ public class Interfaz {
 	public Interfaz(String nombre) {
 		this.nombre = nombre;
 		initialize();
+		this.frame.setVisible(true);
 	}
 
 	/**
@@ -80,7 +75,7 @@ public class Interfaz {
 		// Config panel (Tablero)
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(230, 230, 230));
-		panel.setLayout(new GridLayout(config.DIMENSION_TABLERO, config.DIMENSION_TABLERO, 0, 0));
+		panel.setLayout(new GridLayout(config.TAMAÑO_MATRIZ, config.TAMAÑO_MATRIZ, 0, 0));
 		panel.setLayout(new GridLayout(4, 4, 4, 4)); // Padding
 
 		// Paneles para bordes derecho e izquierdo
@@ -126,7 +121,7 @@ public class Interfaz {
 		frame.getContentPane().add(splitPane);
 
 		// Init juego
-		this.juego = new Juego(config.DIMENSION_TABLERO);
+		this.juego = new Juego(config.TAMAÑO_MATRIZ);
 
 		frame.addKeyListener(new KeyAdapter() {
 			// Key Pressed method
@@ -157,14 +152,14 @@ public class Interfaz {
 
 				if (juego.jugadorGano() || e.getKeyCode() == KeyEvent.VK_1) {
 					frame.dispose();
-					Win w = new Win(nombre, juego.getPuntaje());
-					w.win(nombre, juego.getPuntaje());
+					Win winScreen = new Win(nombre, juego.getPuntaje());
+					winScreen.win(nombre, juego.getPuntaje());
 				}
 
 				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_2) {
 					frame.dispose();
-					GameOver go = new GameOver(nombre, juego.getPuntaje());
-					go.gameOver(nombre, juego.getPuntaje());
+					GameOver goScreen = new GameOver(nombre, juego.getPuntaje());
+					goScreen.gameOver(nombre, juego.getPuntaje());
 				}
 				actualizarPantalla(panel);
 				actualizarPuntaje();
