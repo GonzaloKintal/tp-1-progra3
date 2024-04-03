@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import logica.Juego;
 import utils.Config;
@@ -21,6 +22,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
 import javax.swing.JTable;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 
@@ -69,23 +71,22 @@ public class Interfaz {
 
 		// Panel juego
 		JPanel panelJuego = new JPanel(new BorderLayout());
+		panelJuego.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño preferido
+		panelJuego.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño máximo
+		panelJuego.setMinimumSize(new Dimension(200, config.HEIGHT)); // Establece el tamaño mínimo
+		
+		// Crea los bordes individuales
+        Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 0);
+        Border lineBorder = BorderFactory.createLineBorder(new Color(17, 110, 141), 1);
+        Border compoundBorder = BorderFactory.createCompoundBorder(emptyBorder, lineBorder);
+		panelJuego.setBorder(compoundBorder);
 
 		// Config panel (Tablero)
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(230, 230, 230));
 		panel.setLayout(new GridLayout(config.TAMAÑO_MATRIZ, config.TAMAÑO_MATRIZ, 0, 0));
-		panel.setLayout(new GridLayout(4, 4, 4, 4)); // Padding
-
-		// Paneles para bordes derecho e izquierdo
-		JPanel leftHeaderPanel = new JPanel(new BorderLayout());
-		JLabel leftHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
-		leftHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		leftHeaderPanel.add(leftHeaderLabel, BorderLayout.CENTER);
-
-		JPanel rightHeaderPanel = new JPanel(new BorderLayout());
-		JLabel rightHeaderLabel = new JLabel(" ", SwingConstants.CENTER);
-		rightHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		rightHeaderPanel.add(rightHeaderLabel, BorderLayout.CENTER);
+		panel.setLayout(new GridLayout(4, 4, 7, 7)); // Padding
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 		// Panel para el score
 		JPanel headerPanel = new JPanel();
@@ -103,17 +104,21 @@ public class Interfaz {
 
 		panelJuego.add(panel);
 		panelJuego.add(headerPanel, BorderLayout.NORTH);
-		panelJuego.add(leftHeaderPanel, BorderLayout.WEST);
-		panelJuego.add(rightHeaderPanel, BorderLayout.EAST);
 
 		frame.getContentPane().add(panelJuego);
 
 		// Panel para el ranking
 		JPanel panelRanking = new JPanel();
 		panelRanking.setBackground(Color.WHITE);
+		panelRanking.setPreferredSize(new Dimension(300, config.HEIGHT)); // Establece el tamaño preferido
+	    panelRanking.setMaximumSize(new Dimension(500, config.HEIGHT)); // Establece el tamaño máximo
+	    panelRanking.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
 
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelRanking, panelJuego);
+
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelJuego, panelRanking);
 		panelRanking.setLayout(new BorderLayout(0, 0));
+		splitPane.setResizeWeight(0.5);
+		splitPane.setDividerSize(0);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		panelRanking.add(lblNewLabel_1, BorderLayout.WEST);
@@ -133,21 +138,27 @@ public class Interfaz {
 		panel_1.setMinimumSize(new Dimension(50, 50));
 		panelRanking.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(50, 50));
+		panel_1.setBackground(new Color(40, 40, 40));
 		
-		JLabel lblNewLabel = new JLabel("PUNTAJE    ");
-		lblNewLabel.setSize(new Dimension(0, 20));
-		panel_1.add(lblNewLabel, BorderLayout.EAST);
+		JLabel lblPuntaje = new JLabel("PUNTAJE");
+		lblPuntaje.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+		lblPuntaje.setSize(new Dimension(0, 20));
+		lblPuntaje.setForeground(Color.WHITE);
+		panel_1.add(lblPuntaje, BorderLayout.EAST);
 		
-		JLabel lblNewLabel_3 = new JLabel("    POS");
-		panel_1.add(lblNewLabel_3, BorderLayout.WEST);
+		JLabel lblPosición = new JLabel("POS");
+		lblPosición.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		lblPosición.setForeground(Color.WHITE);
+		panel_1.add(lblPosición, BorderLayout.WEST);
 		
-		JLabel lblNewLabel_5 = new JLabel("NOMBRE");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(lblNewLabel_5, BorderLayout.CENTER);
-		splitPane.setResizeWeight(1.0);
-		splitPane.setDividerSize(0);
+		JLabel lblNombre = new JLabel("NOMBRE");
+		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre.setForeground(Color.WHITE);
+		panel_1.add(lblNombre, BorderLayout.CENTER);
 
 		frame.getContentPane().add(splitPane);
+		
+		panelRanking.setPreferredSize(panelJuego.getPreferredSize());
 
 		// Init juego
 		this.juego = new Juego(config.TAMAÑO_MATRIZ);
