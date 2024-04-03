@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import logica.Juego;
 import utils.Config;
@@ -36,13 +39,15 @@ public class Interfaz {
 	// Agrego un JLabel para mostrar el score
 	private JLabel scoreLabel;
 	private JTable table;
+	private JTable table_1;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void Interfaz(String nombre) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {}
+			public void run() {
+			}
 		});
 	}
 
@@ -74,11 +79,11 @@ public class Interfaz {
 		panelJuego.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño preferido
 		panelJuego.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño máximo
 		panelJuego.setMinimumSize(new Dimension(200, config.HEIGHT)); // Establece el tamaño mínimo
-		
+
 		// Crea los bordes individuales
-        Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 0);
-        Border lineBorder = BorderFactory.createLineBorder(new Color(17, 110, 141), 1);
-        Border compoundBorder = BorderFactory.createCompoundBorder(emptyBorder, lineBorder);
+		Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 0);
+		Border lineBorder = BorderFactory.createLineBorder(new Color(17, 110, 141), 2);
+		Border compoundBorder = BorderFactory.createCompoundBorder(emptyBorder, lineBorder);
 		panelJuego.setBorder(compoundBorder);
 
 		// Config panel (Tablero)
@@ -109,56 +114,83 @@ public class Interfaz {
 
 		// Panel para el ranking
 		JPanel panelRanking = new JPanel();
-		panelRanking.setBackground(Color.WHITE);
+		panelRanking.setBackground(new Color(240, 240, 240));
 		panelRanking.setPreferredSize(new Dimension(300, config.HEIGHT)); // Establece el tamaño preferido
-	    panelRanking.setMaximumSize(new Dimension(500, config.HEIGHT)); // Establece el tamaño máximo
-	    panelRanking.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
+		panelRanking.setMaximumSize(new Dimension(500, config.HEIGHT)); // Establece el tamaño máximo
 
+		Border emptyBorder2 = BorderFactory.createEmptyBorder(20, 20, 20, 20);
+		Border lineBorder2 = BorderFactory.createLineBorder(new Color(17, 110, 141), 2);
+		Border compoundBorder2 = BorderFactory.createCompoundBorder(emptyBorder2, lineBorder2);
+		panelRanking.setBorder(compoundBorder2);
 
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelJuego, panelRanking);
 		panelRanking.setLayout(new BorderLayout(0, 0));
 		splitPane.setResizeWeight(0.5);
 		splitPane.setDividerSize(0);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		panelRanking.add(lblNewLabel_1, BorderLayout.WEST);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("");
 		panelRanking.add(lblNewLabel_2, BorderLayout.EAST);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("");
 		panelRanking.add(lblNewLabel_4, BorderLayout.SOUTH);
 
-//		table = new JTable();
-//		table.setBackground(Color.ORANGE);
-//		panelRanking.add(table, BorderLayout.CENTER);
-		
 		JPanel panel_1 = new JPanel();
 		panel_1.setPreferredSize(new Dimension(50, 30));
 		panel_1.setMinimumSize(new Dimension(50, 50));
 		panelRanking.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(50, 50));
-		panel_1.setBackground(new Color(40, 40, 40));
-		
+		panel_1.setBackground(new Color(17, 110, 141));
+
 		JLabel lblPuntaje = new JLabel("PUNTAJE");
-		lblPuntaje.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+		lblPuntaje.setHorizontalTextPosition(SwingConstants.LEADING);
+		lblPuntaje.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 35));
 		lblPuntaje.setSize(new Dimension(0, 20));
 		lblPuntaje.setForeground(Color.WHITE);
 		panel_1.add(lblPuntaje, BorderLayout.EAST);
-		
+
 		JLabel lblPosición = new JLabel("POS");
-		lblPosición.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		lblPosición.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 		lblPosición.setForeground(Color.WHITE);
 		panel_1.add(lblPosición, BorderLayout.WEST);
-		
+
 		JLabel lblNombre = new JLabel("NOMBRE");
-		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre.setForeground(Color.WHITE);
 		panel_1.add(lblNombre, BorderLayout.CENTER);
 
 		frame.getContentPane().add(splitPane);
-		
+
 		panelRanking.setPreferredSize(panelJuego.getPreferredSize());
+
+		table = new JTable();
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table.setEnabled(false);
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("");
+		model.addColumn("");
+		model.addColumn("");
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		for (int i = 1; i <= 13; i++) {
+			model.addRow(new String[] { "" + i, "", "" });
+		}
+
+		table.setRowHeight(30);
+		table.setBackground(new Color(230, 230, 230));
+		table.setModel(model);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
+		table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+		table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+		table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+
+//		TableModel prueba = table.getModel();
+//		String s = (String) prueba.getValueAt(0, 0);
+//		prueba.setValueAt("Nuevo dato", 1, 1);
+
+		panelRanking.add(table, BorderLayout.CENTER);
 
 		// Init juego
 		this.juego = new Juego(config.TAMAÑO_MATRIZ);

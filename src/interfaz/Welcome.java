@@ -90,11 +90,11 @@ public class Welcome {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = textField.getText();
 				if (nombre.length() <= 0) {
-					JOptionPane.showMessageDialog(frame, "Debe ingresar su nombre","ATENCION",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Debe ingresar su nombre","ATENCIÓN",JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 				else if (nombre.length() > 20) {
-					JOptionPane.showMessageDialog(frame, "El nombre debe exceder los 20 caracteres","ATENCION",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "El nombre debe exceder los 20 caracteres","ATENCIÓN",JOptionPane.WARNING_MESSAGE);
 
 					return;
 				}
