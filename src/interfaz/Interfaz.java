@@ -19,6 +19,10 @@ import utils.Config;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 
 public class Interfaz {
 
@@ -29,6 +33,7 @@ public class Interfaz {
 
 	// Agrego un JLabel para mostrar el score
 	private JLabel scoreLabel;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -108,6 +113,37 @@ public class Interfaz {
 		panelRanking.setBackground(Color.WHITE);
 
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelRanking, panelJuego);
+		panelRanking.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		panelRanking.add(lblNewLabel_1, BorderLayout.WEST);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		panelRanking.add(lblNewLabel_2, BorderLayout.EAST);
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		panelRanking.add(lblNewLabel_4, BorderLayout.SOUTH);
+
+//		table = new JTable();
+//		table.setBackground(Color.ORANGE);
+//		panelRanking.add(table, BorderLayout.CENTER);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(50, 30));
+		panel_1.setMinimumSize(new Dimension(50, 50));
+		panelRanking.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new BorderLayout(50, 50));
+		
+		JLabel lblNewLabel = new JLabel("PUNTAJE    ");
+		lblNewLabel.setSize(new Dimension(0, 20));
+		panel_1.add(lblNewLabel, BorderLayout.EAST);
+		
+		JLabel lblNewLabel_3 = new JLabel("    POS");
+		panel_1.add(lblNewLabel_3, BorderLayout.WEST);
+		
+		JLabel lblNewLabel_5 = new JLabel("NOMBRE");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(lblNewLabel_5, BorderLayout.CENTER);
 		splitPane.setResizeWeight(1.0);
 		splitPane.setDividerSize(0);
 
