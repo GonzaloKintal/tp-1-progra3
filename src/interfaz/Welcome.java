@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
@@ -88,9 +89,13 @@ public class Welcome {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = textField.getText();
-				if (nombre.length() <= 0)
+				if (nombre.length() <= 0) {
+					JOptionPane.showMessageDialog(frame, "Debe ingresar su nombre","ATENCION",JOptionPane.WARNING_MESSAGE);
 					return;
+				}
 				else if (nombre.length() > 20) {
+					JOptionPane.showMessageDialog(frame, "El nombre debe exceder los 20 caracteres","ATENCION",JOptionPane.WARNING_MESSAGE);
+
 					return;
 				}
 
