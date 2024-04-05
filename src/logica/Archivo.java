@@ -11,7 +11,7 @@ public class Archivo {
 	String directorio;
 	
 	public Archivo() {
-		File directoryPath = new File("data/top.txt");
+		File directoryPath = new File("data/ranking.txt");
 		this.directorio = directoryPath.getAbsolutePath();
 	}
 	
@@ -39,7 +39,7 @@ public class Archivo {
 	public void escribirTxt(String text) {
 		try {
 			PrintWriter salida = new PrintWriter(new FileWriter(this.directorio, true));
-			salida.println("HOLAAA");
+			salida.println(text);
 			salida.close();
 
 		} catch (Exception e) {

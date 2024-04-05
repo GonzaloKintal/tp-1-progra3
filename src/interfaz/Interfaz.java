@@ -18,11 +18,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import logica.Archivo;
 import logica.Juego;
+import logica.Juego.RankingEntry;
 import utils.Config;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
+
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.BorderFactory;
@@ -38,8 +42,10 @@ public class Interfaz {
 
 	// Agrego un JLabel para mostrar el score
 	private JLabel scoreLabel;
-	private JTable table;
+	private static JTable table;
 	private JTable table_1;
+
+	private Archivo archivo;
 
 	/**
 	 * Launch the application.
@@ -56,6 +62,7 @@ public class Interfaz {
 	 */
 	public Interfaz(String nombre) {
 		this.nombre = nombre;
+		this.archivo = new Archivo();
 		initialize();
 		this.frame.setVisible(true);
 	}
@@ -73,7 +80,7 @@ public class Interfaz {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width / 2 - 400, dim.height / 2 - 500 / 2);
-
+		
 		// Panel juego
 		JPanel panelJuego = new JPanel(new BorderLayout());
 		panelJuego.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño preferido
@@ -152,7 +159,7 @@ public class Interfaz {
 		panel_1.add(lblPuntaje, BorderLayout.EAST);
 
 		JLabel lblPosición = new JLabel("POS");
-		lblPosición.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+		lblPosición.setBorder(BorderFactory.createEmptyBorder(0, 17, 0, 0));
 		lblPosición.setForeground(Color.WHITE);
 		panel_1.add(lblPosición, BorderLayout.WEST);
 
@@ -174,9 +181,9 @@ public class Interfaz {
 		model.addColumn("");
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		for (int i = 1; i <= 13; i++) {
-			model.addRow(new String[] { "" + i, "", "" });
-		}
+//		for (int i = 1; i <= 13; i++) {
+//			model.addRow(new String[] { "" + i, "", "" });
+//		}
 
 		table.setRowHeight(30);
 		table.setBackground(new Color(230, 230, 230));
@@ -186,9 +193,6 @@ public class Interfaz {
 		table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 		table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 
-//		TableModel prueba = table.getModel();
-//		String s = (String) prueba.getValueAt(0, 0);
-//		prueba.setValueAt("Nuevo dato", 1, 1);
 
 		panelRanking.add(table, BorderLayout.CENTER);
 
@@ -223,12 +227,14 @@ public class Interfaz {
 				}
 
 				if (juego.jugadorGano() || e.getKeyCode() == KeyEvent.VK_1) {
+					juego.escribirDatosEnArchivo(nombre);
 					frame.dispose();
 					Win winScreen = new Win(nombre, juego.getPuntaje());
 					winScreen.win(nombre, juego.getPuntaje());
 				}
 
 				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_2) {
+					juego.escribirDatosEnArchivo(nombre);
 					frame.dispose();
 					GameOver goScreen = new GameOver(nombre, juego.getPuntaje());
 					goScreen.gameOver(nombre, juego.getPuntaje());
@@ -241,6 +247,9 @@ public class Interfaz {
 		);
 
 		actualizarPantalla(panel);
+		
+		List<RankingEntry> ranking = juego.leerRanking();
+        mostrarRanking(ranking);
 	}
 
 	private void actualizarPantalla(JPanel panel) {
@@ -285,4 +294,21 @@ public class Interfaz {
 		return Math.log(x) / Math.log(2);
 	}
 
+	 // Método para mostrar el ranking en la consola
+    private static void mostrarRanking(List<RankingEntry> ranking) {
+    	DefaultTableModel model = (DefaultTableModel) table.getModel();
+    	
+    	int filasFaltantes = 13 - model.getRowCount();
+
+        for (int i=0; i<filasFaltantes; i++) {
+        	model.addRow(new Object[]{"", "", ""});
+        }
+        
+        for (int i = 0; i < ranking.size(); i++) {
+            RankingEntry entry = ranking.get(i);
+            model.setValueAt(i + 1, i, 0); // Establece el valor de la primera columna (POS)
+            model.setValueAt(entry.getNombre(), i, 1); // Establece el nombre en la segunda columna
+            model.setValueAt(entry.getPuntaje(), i, 2); // Establece el puntaje en la tercera columna
+        }
+    }
 }
