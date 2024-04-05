@@ -16,22 +16,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import logica.Archivo;
 import logica.Juego;
-import logica.Juego.RankingEntry;
 import utils.Config;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
 
 public class Interfaz {
 
@@ -43,7 +38,6 @@ public class Interfaz {
 	// Agrego un JLabel para mostrar el score
 	private JLabel scoreLabel;
 	private static JTable table;
-	private JTable table_1;
 
 	private Archivo archivo;
 
@@ -84,8 +78,8 @@ public class Interfaz {
 		// Panel juego
 		JPanel panelJuego = new JPanel(new BorderLayout());
 		panelJuego.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño preferido
-		panelJuego.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño máximo
-		panelJuego.setMinimumSize(new Dimension(200, config.HEIGHT)); // Establece el tamaño mínimo
+		panelJuego.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT));
+		panelJuego.setMinimumSize(new Dimension(200, config.HEIGHT));
 
 		// Crea los bordes individuales
 		Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 0);
@@ -100,7 +94,7 @@ public class Interfaz {
 		panel.setLayout(new GridLayout(4, 4, 7, 7)); // Padding
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-		// Panel para el score
+		// Panel para el header
 		JPanel headerPanel = new JPanel();
 		scoreLabel = new JLabel(" Score: 0");
 		scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -122,8 +116,6 @@ public class Interfaz {
 		// Panel para el ranking
 		JPanel panelRanking = new JPanel();
 		panelRanking.setBackground(new Color(240, 240, 240));
-		panelRanking.setPreferredSize(new Dimension(300, config.HEIGHT)); // Establece el tamaño preferido
-		panelRanking.setMaximumSize(new Dimension(500, config.HEIGHT)); // Establece el tamaño máximo
 
 		Border emptyBorder2 = BorderFactory.createEmptyBorder(20, 20, 20, 20);
 		Border lineBorder2 = BorderFactory.createLineBorder(new Color(17, 110, 141), 2);
@@ -181,9 +173,6 @@ public class Interfaz {
 		model.addColumn("");
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-//		for (int i = 1; i <= 13; i++) {
-//			model.addRow(new String[] { "" + i, "", "" });
-//		}
 
 		table.setRowHeight(30);
 		table.setBackground(new Color(230, 230, 230));
@@ -248,7 +237,7 @@ public class Interfaz {
 
 		actualizarPantalla(panel);
 		
-		List<RankingEntry> ranking = juego.leerRanking();
+		List<Archivo.RankingEntry> ranking = juego.leerRanking();
         mostrarRanking(ranking);
 	}
 
@@ -294,8 +283,8 @@ public class Interfaz {
 		return Math.log(x) / Math.log(2);
 	}
 
-	 // Método para mostrar el ranking en la consola
-    private static void mostrarRanking(List<RankingEntry> ranking) {
+	 // Método para llenar la tabla
+    private static void mostrarRanking(List<Archivo.RankingEntry> ranking) {
     	DefaultTableModel model = (DefaultTableModel) table.getModel();
     	
     	int filasFaltantes = 13 - model.getRowCount();
@@ -305,10 +294,10 @@ public class Interfaz {
         }
         
         for (int i = 0; i < ranking.size(); i++) {
-            RankingEntry entry = ranking.get(i);
-            model.setValueAt(i + 1, i, 0); // Establece el valor de la primera columna (POS)
-            model.setValueAt(entry.getNombre(), i, 1); // Establece el nombre en la segunda columna
-            model.setValueAt(entry.getPuntaje(), i, 2); // Establece el puntaje en la tercera columna
+            Archivo.RankingEntry entry = ranking.get(i);
+            model.setValueAt(i + 1, i, 0);
+            model.setValueAt(entry.getNombre(), i, 1);
+            model.setValueAt(entry.getPuntaje(), i, 2);
         }
     }
 }

@@ -1,14 +1,6 @@
 package logica;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class Juego {
 	Tablero tablero;
@@ -82,44 +74,8 @@ public class Juego {
 		archivo.escribirTxt(nombre + " " + this.puntaje);
 	}
 	
-	public List<RankingEntry> leerRanking() {
-		List<RankingEntry> ranking = new ArrayList<>();
-		
-		try (BufferedReader br = new BufferedReader(new FileReader("data/ranking.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\s+");
-                String nombre = parts[0];
-                int puntaje = Integer.parseInt(parts[1]);
-                ranking.add(new RankingEntry(nombre, puntaje));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Ordenar el ranking de mayor a menor según el puntaje
-        Collections.sort(ranking, Comparator.comparingInt(RankingEntry::getPuntaje).reversed());
-        
-        return ranking;
+	public List<Archivo.RankingEntry> leerRanking() {
+		return archivo.leerRanking();
 	}
-	
-	// Clase interna para representar una entrada en el ranking
-    public static class RankingEntry {
-        String nombre;
-        int puntaje;
-
-        public RankingEntry(String nombre, int puntaje) {
-            this.nombre = nombre;
-            this.puntaje = puntaje;
-        }
-
-        public String getNombre() {
-            return nombre;
-        }
-
-        public int getPuntaje() {
-            return puntaje;
-        }
-    }
 
 }
