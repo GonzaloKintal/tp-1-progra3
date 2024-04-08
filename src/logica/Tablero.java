@@ -49,9 +49,9 @@ public class Tablero {
 	private int esDosOCuatro() {
 		return dameNumeroRandom(10) > 7 ? 4 : 2;
 	}
+	
 
 	// Métodos de movimiento genéricos
-
 	public void moverHorizontal(int direccion) {
 		for (int fila = 0; fila < matriz.length; fila++) {
 			if (direccion == 1) {

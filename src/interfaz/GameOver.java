@@ -2,16 +2,13 @@ package interfaz;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -56,25 +53,24 @@ public class GameOver {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 500, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
 		
-		JLabel lblGameOver = new JLabel("Perdiste " + this.nombre);
-		lblGameOver.setFont(new Font("Arial", Font.BOLD, 30));
-		lblGameOver.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGameOver.setBounds(0, 60, 500, 60);
-		frame.getContentPane().add(lblGameOver);
+		configurarFrame();
 		
-		JLabel lblScoreLabel = new JLabel("Score: " + this.score);
-		lblScoreLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		lblScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblScoreLabel.setBounds(0, 110, 500, 60);
-		frame.getContentPane().add(lblScoreLabel);
+		configurarMensajes();
 		
+		configurarBotones();
+		
+		JLabel lblImage = new JLabel();
+		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
+		
+		lblImage.setIcon(new ImageIcon(img));
+				
+		lblImage.setBounds(40, 320, 368, 130);
+		frame.getContentPane().add(lblImage);
+		
+	}
+
+	private void configurarBotones() {
 		JButton btnVolverAJugar = new JButton("JUGAR DE NUEVO");
 		btnVolverAJugar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnVolverAJugar.setBackground(new Color(106, 226, 246));
@@ -82,7 +78,6 @@ public class GameOver {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				Interfaz interfaz = new Interfaz(nombre);
-				interfaz.Interfaz(nombre);
 			}
 		});
 		btnVolverAJugar.setBounds(30, 210, 200, 70);
@@ -99,14 +94,28 @@ public class GameOver {
 		});
 		btnSalirDelJuego.setBounds(255, 210, 200, 70);
 		frame.getContentPane().add(btnSalirDelJuego);
+	}
+
+	private void configurarMensajes() {
+		JLabel lblGameOver = new JLabel("Perdiste " + this.nombre);
+		lblGameOver.setFont(new Font("Arial", Font.BOLD, 30));
+		lblGameOver.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGameOver.setBounds(0, 60, 500, 60);
+		frame.getContentPane().add(lblGameOver);
 		
-		
-		JLabel lblImage = new JLabel();
-		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
-		
-		lblImage.setIcon(new ImageIcon(img));
-				
-		lblImage.setBounds(40, 320, 368, 130);
-		frame.getContentPane().add(lblImage);
+		JLabel lblScoreLabel = new JLabel("Score: " + this.score);
+		lblScoreLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		lblScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblScoreLabel.setBounds(0, 110, 500, 60);
+		frame.getContentPane().add(lblScoreLabel);
+	}
+
+	private void configurarFrame() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 500, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
 	}
 }
