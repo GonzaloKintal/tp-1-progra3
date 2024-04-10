@@ -314,7 +314,6 @@ public class Tablero {
 			return true;
 		}
 		return false;
-
 	}
 
 	private boolean estaEnRango(int pos) {

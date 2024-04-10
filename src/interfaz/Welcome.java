@@ -28,6 +28,10 @@ import javax.swing.border.Border;
 
 import logica.Archivo;
 import utils.Config;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Welcome {
 
@@ -66,19 +70,22 @@ public class Welcome {
 	private void initialize() {
 
 		crearFrame();
+
 		JPanel panelWelcome = crearPanelWelcome();
+
+		crearBordes(panelWelcome);
+
 		crearLabelNombreUsuario();
 		crearInputNombreUsuario();
-		JPanel panelTablero = crearPanelTablero();
+
 		JButton btnNewButton = crearBotonJugar();
-        JLabel lblImage = new JLabel();
-		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
-		lblImage.setIcon(new ImageIcon(img));
-		lblImage.setBounds(40, 320, 500, 130);
-		frame.getContentPane().add(lblImage);
-		frame.getContentPane().add(panelTablero);
+
+		frame.getContentPane().add(crearImagen());
+
 		JPanel panelRanking = this.ranking.obtenerPanelRanking();
+
 		JSplitPane splitPane = dividirPantalla(panelWelcome, panelRanking);
+
 		frame.getContentPane().add(splitPane);
 
 		List<Archivo.RankingEntry> rankingLista = new Archivo().leerRanking();
@@ -87,6 +94,14 @@ public class Welcome {
 
 		verificarInputYJugar(btnNewButton);
 
+	}
+
+	private JLabel crearImagen() {
+		JLabel lblImage = new JLabel();
+		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
+		lblImage.setIcon(new ImageIcon(img));
+		lblImage.setBounds(40, 300, 500, 130);
+		return lblImage;
 	}
 
 	private JSplitPane dividirPantalla(JPanel panelWelcome, JPanel panelRanking) {
@@ -105,13 +120,11 @@ public class Welcome {
 		return panelWelcome;
 	}
 
-	private JPanel crearPanelTablero() {
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(230, 230, 230));
-		panel.setLayout(new GridLayout(config.TAMAÑO_MATRIZ, config.TAMAÑO_MATRIZ, 0, 0));
-		panel.setLayout(new GridLayout(4, 4, 7, 7)); // Padding
-		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		return panel;
+	private void crearBordes(JPanel panelWelcome) {
+		Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 0);
+		Border lineBorder = BorderFactory.createLineBorder(new Color(17, 110, 141), 2);
+		Border compoundBorder = BorderFactory.createCompoundBorder(emptyBorder, lineBorder);
+		panelWelcome.setBorder(compoundBorder);
 	}
 
 	private void verificarInputYJugar(JButton btnNewButton) {
@@ -149,7 +162,7 @@ public class Welcome {
 
 	private JButton crearBotonJugar() {
 		JButton btnNewButton = new JButton("Jugar");
-		btnNewButton.setBounds(140, 200, 200, 70);
+		btnNewButton.setBounds(140, 190, 200, 70);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 20));
 		btnNewButton.setBackground(new Color(106, 226, 246));
 		frame.getContentPane().add(btnNewButton);

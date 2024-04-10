@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import logica.Archivo;
 import utils.Config;
@@ -26,32 +27,34 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class GameOver {
+public class Final {
 
 	private JFrame frame;
 	public String nombre;
+	private String mensaje;
 	private Ranking ranking;
 	public int score;
 	private Config config = new Config();
-	
+
 	/**
 	 * Create the application.
 	 */
-	public GameOver(String nombre, int score) {
+	public Final(String nombre, int score, String mensaje) {
 		this.nombre = nombre;
 		this.score = score;
+		this.mensaje = mensaje;
 		this.ranking = new Ranking();
 		initialize();
 	}
-	
+
 	/**
 	 * Launch the application.
 	 */
-	public static void gameOver(String n, int score) {
+	public static void Final(String n, int score, String mensaje) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameOver window = new GameOver(n, score);
+					Final window = new Final(n, score, mensaje);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,39 +63,44 @@ public class GameOver {
 		});
 	}
 
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		configurarFrame();
-		JPanel panelGameOver = crearPanelGameOver();
-		JPanel panelTablero = crearPanelTablero();
-        panelGameOver.setLayout(new BorderLayout());
-      
-		
+		JPanel panelFinal = crearPanelGameOver();
+		panelFinal.setLayout(new BorderLayout());
+
 		configurarMensajes();
-		
 		configurarBotones();
-		frame.getContentPane().add(panelGameOver, BorderLayout.CENTER);
-		JLabel lblImage = new JLabel();
-		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
-		
-		lblImage.setIcon(new ImageIcon(img));		
-		lblImage.setBounds(40, 320, 368, 130);
-		frame.getContentPane().add(lblImage);
-		frame.getContentPane().add(lblImage);
-		frame.getContentPane().add(panelGameOver, BorderLayout.CENTER);
+
+		frame.getContentPane().add(panelFinal, BorderLayout.CENTER);
+
+		crearImagen(panelFinal);
+
+		crearBordes(panelFinal);
+
 		JPanel panelRanking = this.ranking.obtenerPanelRanking();
-	    JSplitPane splitPane = dividirPantalla(panelGameOver, panelRanking);
+
+		JSplitPane splitPane = dividirPantalla(panelFinal, panelRanking);
+
 		frame.getContentPane().add(splitPane);
-		
 
 		List<Archivo.RankingEntry> rankingLista = new Archivo().leerRanking();
 
 		ranking.mostrarRanking(rankingLista);
-		
+
+	}
+
+	private void crearImagen(JPanel panelFinal) {
+		JLabel lblImage = new JLabel();
+		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
+		lblImage.setIcon(new ImageIcon(img));
+		lblImage.setBounds(40, 300, 368, 130);
+		frame.getContentPane().add(lblImage);
+		frame.getContentPane().add(lblImage);
+		frame.getContentPane().add(panelFinal, BorderLayout.CENTER);
 	}
 
 	private JSplitPane dividirPantalla(JPanel panelGameOver, JPanel panelRanking) {
@@ -103,28 +111,25 @@ public class GameOver {
 		return splitPane;
 	}
 
-	private JPanel crearPanelTablero() {
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(230, 230, 230));
-		panel.setLayout(new GridLayout(config.TAMAÑO_MATRIZ, config.TAMAÑO_MATRIZ, 0, 0));
-		panel.setLayout(new GridLayout(4, 4, 7, 7)); // Padding
-		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		return panel;
-	}
-
 	private JPanel crearPanelGameOver() {
 		JPanel panelGameOver = new JPanel(new BorderLayout());
 		panelGameOver.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT));
 		panelGameOver.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT));
 		panelGameOver.setMinimumSize(new Dimension(200, config.HEIGHT));
 		return panelGameOver;
-		
-		
+
+	}
+
+	private void crearBordes(JPanel panelFinal) {
+		Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 0);
+		Border lineBorder = BorderFactory.createLineBorder(new Color(17, 110, 141), 2);
+		Border compoundBorder = BorderFactory.createCompoundBorder(emptyBorder, lineBorder);
+		panelFinal.setBorder(compoundBorder);
 	}
 
 	private void configurarBotones() {
 		JButton btnVolverAJugar = new JButton("JUGAR DE NUEVO");
-		btnVolverAJugar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnVolverAJugar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnVolverAJugar.setBackground(new Color(106, 226, 246));
 		btnVolverAJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,33 +137,32 @@ public class GameOver {
 				Interfaz interfaz = new Interfaz(nombre);
 			}
 		});
-		btnVolverAJugar.setBounds(30, 210, 200, 70);
+		btnVolverAJugar.setBounds(50, 210, 170, 50);
 		frame.getContentPane().add(btnVolverAJugar);
-		
-		
+
 		JButton btnSalirDelJuego = new JButton("SALIR DEL JUEGO");
-		btnSalirDelJuego.setFont(new Font("Arial", Font.BOLD, 16));
+		btnSalirDelJuego.setFont(new Font("Arial", Font.BOLD, 14));
 		btnSalirDelJuego.setBackground(new Color(106, 226, 246));
 		btnSalirDelJuego.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
 		});
-		btnSalirDelJuego.setBounds(255, 210, 200, 70);
+		btnSalirDelJuego.setBounds(245, 210, 170, 50);
 		frame.getContentPane().add(btnSalirDelJuego);
 	}
 
 	private void configurarMensajes() {
-		JLabel lblGameOver = new JLabel("Perdiste " + this.nombre);
+		JLabel lblGameOver = new JLabel(this.mensaje + " " + this.nombre);
 		lblGameOver.setFont(new Font("Arial", Font.BOLD, 30));
 		lblGameOver.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGameOver.setBounds(0, 60, 500, 60);
+		lblGameOver.setBounds(-20, 60, 500, 60);
 		frame.getContentPane().add(lblGameOver);
-		
+
 		JLabel lblScoreLabel = new JLabel("Score: " + this.score);
 		lblScoreLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblScoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblScoreLabel.setBounds(0, 110, 500, 60);
+		lblScoreLabel.setBounds(-20, 110, 500, 60);
 		frame.getContentPane().add(lblScoreLabel);
 	}
 
@@ -171,5 +175,5 @@ public class GameOver {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width / 2 - 400, dim.height / 2 - 500 / 2);
 	}
-	
+
 }

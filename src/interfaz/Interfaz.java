@@ -134,15 +134,15 @@ public class Interfaz {
 				if (juego.jugadorGano() || e.getKeyCode() == KeyEvent.VK_1) {
 					juego.escribirDatosEnArchivo(nombre);
 					frame.dispose();
-					Win winScreen = new Win(nombre, juego.getPuntaje());
-					winScreen.win(nombre, juego.getPuntaje());
+					Final finalScreen = new Final(nombre, juego.getPuntaje(), "Ganaste");
+					finalScreen.Final(nombre, juego.getPuntaje(), "Ganaste");
 				}
 
 				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_2) {
 					juego.escribirDatosEnArchivo(nombre);
 					frame.dispose();
-					GameOver goScreen = new GameOver(nombre, juego.getPuntaje());
-					goScreen.gameOver(nombre, juego.getPuntaje());
+					Final finalScreen = new Final(nombre, juego.getPuntaje(), "Perdiste");
+					finalScreen.Final(nombre, juego.getPuntaje(), "Perdiste");
 				}
 				actualizarPantalla(panelTablero);
 				actualizarPuntaje();
