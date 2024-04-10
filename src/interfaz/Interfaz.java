@@ -98,6 +98,10 @@ public class Interfaz {
 		ranking.mostrarRanking(rankingLista);
 	
 	}
+	
+	public Juego obtenerJuego() {
+		return juego;
+	}
 
 	private void detectarMovimiento(JPanel panelTablero, JLabel lastMovementLabel) {
 		frame.addKeyListener(new KeyAdapter() {
@@ -185,7 +189,7 @@ public class Interfaz {
 
 	private JPanel crearPanelJuego() {
 		JPanel panelJuego = new JPanel(new BorderLayout());
-		panelJuego.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT)); // Establece el tamaño preferido
+		panelJuego.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT));
 		panelJuego.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT));
 		panelJuego.setMinimumSize(new Dimension(200, config.HEIGHT));
 		return panelJuego;
@@ -202,7 +206,6 @@ public class Interfaz {
 	}
 
 	private void actualizarPantalla(JPanel panel) {
-		// Elimina todos los componentes del panel
 		panel.removeAll();
 
 		for (int i = 0; i < juego.getTamañoTablero(); i++) {

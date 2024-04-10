@@ -7,8 +7,10 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -55,6 +57,10 @@ public class GameOver {
 	private void initialize() {
 		
 		configurarFrame();
+		
+		JPanel panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new BorderLayout());
+        frame.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		
 		configurarMensajes();
 		
@@ -118,4 +124,5 @@ public class GameOver {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
 	}
+	
 }

@@ -1,6 +1,3 @@
-Gonzalo 123
-Fabian 234
-Santiago 567
-Gonzalito 312
-Lucifer 64
-Julian 392
+Santiago 10
+Gonzalo 10
+Fabian 10

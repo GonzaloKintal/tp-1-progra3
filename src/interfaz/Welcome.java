@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+import logica.Archivo;
+
 public class Welcome {
 
 	private JFrame frame;
@@ -86,11 +88,20 @@ public class Welcome {
 					JOptionPane.showMessageDialog(frame, "El nombre NO debe contener espacios", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
+				else if (existeEnTabla(nombre)) {
+					JOptionPane.showMessageDialog(frame, "El nombre ya existe", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 
 				frame.dispose();
 				Interfaz interfaz = new Interfaz(nombre);
 			}
 		});
+	}
+	
+	private boolean existeEnTabla(String nombre) {
+		Archivo archivo = new Archivo();
+		return archivo.existeNombre(nombre);
 	}
 
 	private JButton crearBotonJugar() {

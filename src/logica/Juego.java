@@ -71,11 +71,15 @@ public class Juego {
 	}
 	
 	public void escribirDatosEnArchivo(String nombre) {
-		archivo.escribirTxt(nombre + " " + this.puntaje);
+		archivo.escribirTxt(nombre, this.puntaje);
 	}
 	
 	public List<Archivo.RankingEntry> leerRanking() {
 		return archivo.leerRanking();
+	}
+	
+	public boolean existeNombre(String nombre)  {
+		return archivo.existeNombre(nombre);
 	}
 
 }

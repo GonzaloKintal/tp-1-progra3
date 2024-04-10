@@ -116,4 +116,5 @@ public class Win {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width / 2 - 500 / 2, dim.height / 2 - 500 / 2);
 	}
+	
 }

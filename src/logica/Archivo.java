@@ -41,14 +41,24 @@ public class Archivo {
 		return texto;
 	}
 	
-	public void escribirTxt(String text) {
+	public void escribirTxt(String nombre, int puntaje) {
 		try {
-			PrintWriter salida = new PrintWriter(new FileWriter(this.directorio, true));
-			salida.println(text);
-			salida.close();
+			escribir(nombre, puntaje);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+
+	private void escribir(String nombre, int puntaje) throws IOException {
+		if (!existeNombre(nombre)) {
+			String text = nombre + " " + puntaje;
+			PrintWriter salida = new PrintWriter(new FileWriter(this.directorio, true));
+			salida.println(text);
+			salida.close();
+		} else {
+			reemplazarPuntaje(nombre, puntaje);
 		}
 	}
 	
@@ -73,6 +83,42 @@ public class Archivo {
         return ranking;
 	}
 	
+	public boolean existeNombre(String nombre) {
+		List<RankingEntry> ranking = this.leerRanking();
+		for (RankingEntry entrada: ranking) {
+			if (entrada.getNombre().equals(nombre)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void reemplazarPuntaje(String nombre, int puntaje) {
+		List<RankingEntry> ranking = this.leerRanking();
+		for (RankingEntry entrada: ranking) {
+			if (entrada.getNombre().equals(nombre)) {
+				entrada.setearPuntaje(puntaje);
+			}
+		}
+		
+		reescribirArchivo(ranking);
+	}
+
+
+	private void reescribirArchivo(List<RankingEntry> ranking) {
+		// Reescribir el archivo con el nuevo puntaje
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter(directorio));
+            for (RankingEntry entrada : ranking) {
+                writer.println(entrada.getNombre() + " " + entrada.getPuntaje());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	
 	// Clase interna para representar una entrada en el ranking
     public static class RankingEntry {
         String nombre;
@@ -89,6 +135,12 @@ public class Archivo {
 
         public int getPuntaje() {
             return puntaje;
+        }
+        
+        public void setearPuntaje(int nuevoPuntaje) {
+        	if (nuevoPuntaje > this.puntaje) {
+        		this.puntaje = nuevoPuntaje;
+        	}
         }
     }
 
