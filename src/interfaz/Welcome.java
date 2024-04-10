@@ -2,6 +2,7 @@ package interfaz;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -9,20 +10,31 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import logica.Archivo;
+import utils.Config;
 
 public class Welcome {
 
 	private JFrame frame;
 	private JTextField textField;
+	private Config config = new Config();
+	private Ranking ranking;
 
 	/**
 	 * Launch the application.
@@ -44,6 +56,7 @@ public class Welcome {
 	 * Create the application.
 	 */
 	public Welcome() {
+		this.ranking = new Ranking();
 		initialize();
 	}
 
@@ -51,25 +64,54 @@ public class Welcome {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		crearFrame();
-
+		JPanel panelWelcome = crearPanelWelcome();
 		crearLabelNombreUsuario();
-
 		crearInputNombreUsuario();
-
+		JPanel panelTablero = crearPanelTablero();
 		JButton btnNewButton = crearBotonJugar();
-
-		JLabel lblImage = new JLabel();
+        JLabel lblImage = new JLabel();
 		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
-		
 		lblImage.setIcon(new ImageIcon(img));
-				
-		lblImage.setBounds(40, 320, 368, 130);
+		lblImage.setBounds(40, 320, 500, 130);
 		frame.getContentPane().add(lblImage);
+		frame.getContentPane().add(panelTablero);
+		JPanel panelRanking = this.ranking.obtenerPanelRanking();
+		JSplitPane splitPane = dividirPantalla(panelWelcome, panelRanking);
+		frame.getContentPane().add(splitPane);
+
+		List<Archivo.RankingEntry> rankingLista = new Archivo().leerRanking();
+
+		ranking.mostrarRanking(rankingLista);
 
 		verificarInputYJugar(btnNewButton);
-		
+
+	}
+
+	private JSplitPane dividirPantalla(JPanel panelWelcome, JPanel panelRanking) {
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelWelcome, panelRanking);
+		splitPane.setResizeWeight(0.5);
+		splitPane.setDividerSize(0);
+		panelRanking.setPreferredSize(panelWelcome.getPreferredSize());
+		return splitPane;
+	}
+
+	private JPanel crearPanelWelcome() {
+		JPanel panelWelcome = new JPanel(new BorderLayout());
+		panelWelcome.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT));
+		panelWelcome.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT));
+		panelWelcome.setMinimumSize(new Dimension(200, config.HEIGHT));
+		return panelWelcome;
+	}
+
+	private JPanel crearPanelTablero() {
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(230, 230, 230));
+		panel.setLayout(new GridLayout(config.TAMAÑO_MATRIZ, config.TAMAÑO_MATRIZ, 0, 0));
+		panel.setLayout(new GridLayout(4, 4, 7, 7)); // Padding
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		return panel;
 	}
 
 	private void verificarInputYJugar(JButton btnNewButton) {
@@ -77,19 +119,20 @@ public class Welcome {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = textField.getText();
 				if (nombre.length() <= 0) {
-					JOptionPane.showMessageDialog(frame, "Debe ingresar su nombre", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Debe ingresar su nombre", "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
 					return;
-				}
-				else if (nombre.length() > 20) {
-					JOptionPane.showMessageDialog(frame, "El nombre debe exceder los 20 caracteres", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+				} else if (nombre.length() > 20) {
+					JOptionPane.showMessageDialog(frame, "El nombre debe exceder los 20 caracteres", "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
 					return;
-				}
-				else if (nombre.contains(" ")) {
-					JOptionPane.showMessageDialog(frame, "El nombre NO debe contener espacios", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+				} else if (nombre.contains(" ")) {
+					JOptionPane.showMessageDialog(frame, "El nombre NO debe contener espacios", "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
 					return;
-				}
-				else if (existeEnTabla(nombre)) {
-					JOptionPane.showMessageDialog(frame, "El nombre ya existe", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+				} else if (existeEnTabla(nombre)) {
+					JOptionPane.showMessageDialog(frame, "El nombre ya existe", "ATENCIÓN",
+							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 
@@ -98,7 +141,7 @@ public class Welcome {
 			}
 		});
 	}
-	
+
 	private boolean existeEnTabla(String nombre) {
 		Archivo archivo = new Archivo();
 		return archivo.existeNombre(nombre);
@@ -131,11 +174,11 @@ public class Welcome {
 
 	private void crearFrame() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 500, 500);
+		frame.setTitle("2048");
+		frame.setResizable(false);
+		frame.setBounds(100, 100, config.WIDTH + 300, config.HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width / 2 - 500 / 2, dim.height / 2 - 500 / 2);
+		frame.setLocation(dim.width / 2 - 400, dim.height / 2 - 500 / 2);
 	}
 }

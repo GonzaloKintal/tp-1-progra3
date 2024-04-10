@@ -62,7 +62,7 @@ public class Interfaz {
 	private void initialize() {
 
 		crearFrame();
-		
+
 		JPanel panelJuego = crearPanelJuego();
 
 		crearBordes(panelJuego);
@@ -77,7 +77,7 @@ public class Interfaz {
 		panelJuego.add(headerPanel, BorderLayout.NORTH);
 
 		frame.getContentPane().add(panelJuego);
-		
+
 		JPanel panelRanking = this.ranking.obtenerPanelRanking();
 
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelJuego, panelRanking);
@@ -93,12 +93,12 @@ public class Interfaz {
 		detectarMovimiento(panelTablero, lastMovementLabel);
 
 		actualizarPantalla(panelTablero);
-		
-		List<Archivo.RankingEntry> rankingLista = juego.leerRanking();
+
+		List<Archivo.RankingEntry> rankingLista = new Archivo().leerRanking();
 		ranking.mostrarRanking(rankingLista);
-	
+
 	}
-	
+
 	public Juego obtenerJuego() {
 		return juego;
 	}
@@ -245,5 +245,5 @@ public class Interfaz {
 	private static double log2(int x) {
 		return Math.log(x) / Math.log(2);
 	}
-	
+
 }

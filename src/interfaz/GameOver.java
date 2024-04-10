@@ -2,28 +2,37 @@ package interfaz;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
+
+import logica.Archivo;
+import utils.Config;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class GameOver {
 
 	private JFrame frame;
 	public String nombre;
+	private Ranking ranking;
 	public int score;
+	private Config config = new Config();
 	
 	/**
 	 * Create the application.
@@ -31,6 +40,7 @@ public class GameOver {
 	public GameOver(String nombre, int score) {
 		this.nombre = nombre;
 		this.score = score;
+		this.ranking = new Ranking();
 		initialize();
 	}
 	
@@ -57,22 +67,58 @@ public class GameOver {
 	private void initialize() {
 		
 		configurarFrame();
-		
-		JPanel panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new BorderLayout());
-        frame.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
+		JPanel panelGameOver = crearPanelGameOver();
+		JPanel panelTablero = crearPanelTablero();
+        panelGameOver.setLayout(new BorderLayout());
+      
 		
 		configurarMensajes();
 		
 		configurarBotones();
-		
+		frame.getContentPane().add(panelGameOver, BorderLayout.CENTER);
 		JLabel lblImage = new JLabel();
 		Image img = new ImageIcon(this.getClass().getResource("/2048-image.png")).getImage();
 		
-		lblImage.setIcon(new ImageIcon(img));
-				
+		lblImage.setIcon(new ImageIcon(img));		
 		lblImage.setBounds(40, 320, 368, 130);
 		frame.getContentPane().add(lblImage);
+		frame.getContentPane().add(lblImage);
+		frame.getContentPane().add(panelGameOver, BorderLayout.CENTER);
+		JPanel panelRanking = this.ranking.obtenerPanelRanking();
+	    JSplitPane splitPane = dividirPantalla(panelGameOver, panelRanking);
+		frame.getContentPane().add(splitPane);
+		
+
+		List<Archivo.RankingEntry> rankingLista = new Archivo().leerRanking();
+
+		ranking.mostrarRanking(rankingLista);
+		
+	}
+
+	private JSplitPane dividirPantalla(JPanel panelGameOver, JPanel panelRanking) {
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelGameOver, panelRanking);
+		splitPane.setResizeWeight(0.5);
+		splitPane.setDividerSize(0);
+		panelRanking.setPreferredSize(panelGameOver.getPreferredSize());
+		return splitPane;
+	}
+
+	private JPanel crearPanelTablero() {
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(230, 230, 230));
+		panel.setLayout(new GridLayout(config.TAMAÑO_MATRIZ, config.TAMAÑO_MATRIZ, 0, 0));
+		panel.setLayout(new GridLayout(4, 4, 7, 7)); // Padding
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		return panel;
+	}
+
+	private JPanel crearPanelGameOver() {
+		JPanel panelGameOver = new JPanel(new BorderLayout());
+		panelGameOver.setPreferredSize(new Dimension(config.WIDTH, config.HEIGHT));
+		panelGameOver.setMaximumSize(new Dimension(config.WIDTH, config.HEIGHT));
+		panelGameOver.setMinimumSize(new Dimension(200, config.HEIGHT));
+		return panelGameOver;
+		
 		
 	}
 
@@ -118,11 +164,12 @@ public class GameOver {
 
 	private void configurarFrame() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 500, 500);
+		frame.setTitle("2048");
+		frame.setResizable(false);
+		frame.setBounds(100, 100, config.WIDTH + 300, config.HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width/2- 500 /2, dim.height/2-500/2);
+		frame.setLocation(dim.width / 2 - 400, dim.height / 2 - 500 / 2);
 	}
 	
 }
