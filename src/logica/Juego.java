@@ -13,7 +13,6 @@ public class Juego {
 		this.tablero.agregarNumero();
 		this.tablero.agregarNumero();
 		this.archivo = new Archivo();
-		System.out.println("Iniciando juego");
 	}
 
 	public int getTamañoTablero() {
