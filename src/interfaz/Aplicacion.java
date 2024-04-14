@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 
-public class Interfaz {
+public class Aplicacion {
 
 	private JFrame frame;
 	private Juego juego;
@@ -49,7 +49,7 @@ public class Interfaz {
 	/**
 	 * Create the application.
 	 */
-	public Interfaz(String nombre) {
+	public Aplicacion(String nombre) {
 		this.nombre = nombre;
 		this.ranking = new Ranking();
 		initialize();
@@ -131,6 +131,7 @@ public class Interfaz {
 					juego.agregarNumero();
 				}
 
+				// Presionar 1 para ganar el juego
 				if (juego.jugadorGano() || e.getKeyCode() == KeyEvent.VK_1) {
 					juego.escribirDatosEnArchivo(nombre);
 					frame.dispose();
@@ -138,6 +139,7 @@ public class Interfaz {
 					finalScreen.Final(nombre, juego.getPuntaje(), "Ganaste");
 				}
 
+				// Presionar 2 para perder el juego
 				if (juego.jugadorPerdio() || e.getKeyCode() == KeyEvent.VK_2) {
 					juego.escribirDatosEnArchivo(nombre);
 					frame.dispose();

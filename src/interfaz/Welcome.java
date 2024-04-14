@@ -2,7 +2,6 @@ package interfaz;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -145,7 +144,7 @@ public class Welcome {
 				}
 
 				frame.dispose();
-				Interfaz interfaz = new Interfaz(nombre);
+				Aplicacion interfaz = new Aplicacion(nombre);
 			}
 		});
 	}

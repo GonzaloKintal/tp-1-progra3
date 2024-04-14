@@ -134,7 +134,7 @@ public class Final {
 		btnVolverAJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				Interfaz interfaz = new Interfaz(nombre);
+				Aplicacion interfaz = new Aplicacion(nombre);
 			}
 		});
 		btnVolverAJugar.setBounds(50, 210, 170, 50);
