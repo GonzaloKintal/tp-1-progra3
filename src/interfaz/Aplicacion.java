@@ -32,7 +32,6 @@ public class Aplicacion {
 	private Config config = new Config();
 	public String nombre;
 
-	// Agrego un JLabel para mostrar el score
 	private JLabel scoreLabel;
 	private Ranking ranking;
 

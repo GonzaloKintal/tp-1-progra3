@@ -347,7 +347,6 @@ public class Tablero {
 				}
 			}
 		}
-
 		return false;
 	}
 
@@ -376,9 +375,7 @@ public class Tablero {
 				}
 			}
 		}
-
 		return false;
-
 	}
 
 	private boolean posibleMovimientoIzquierda(int fila, int col) {
@@ -405,7 +402,6 @@ public class Tablero {
 				}
 			}
 		}
-
 		return false;
 	}
 
@@ -433,9 +429,7 @@ public class Tablero {
 				}
 			}
 		}
-
 		return false;
-
 	}
 
 	private boolean posibleMovimientoArriba(int fila, int col) {
