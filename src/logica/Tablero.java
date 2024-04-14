@@ -46,6 +46,13 @@ public class Tablero {
 		return random;
 	}
 
+	/**
+	 * Obtiene un numero random entre 0 y 10, si este numero es mayor a 7 devuelve un 4, sino un 2
+	 *
+	 * 
+	 * @param valor int
+	 * @return int
+	 */
 	private int esDosOCuatro() {
 		return dameNumeroRandom(10) > 7 ? 4 : 2;
 	}
