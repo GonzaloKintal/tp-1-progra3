@@ -140,7 +140,6 @@ public class TableroTest {
 		this.tablero.moverVertical(-1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaArriba));
 		
-		// ESTE NO PASA (revisarlo)
 		this.tablero = new Tablero(matriz_init2);
 		this.tablero.moverVertical(-1);
 		assertTrue(matricesAreEqual(this.tablero.getMatriz(), matrizMovidaArriba2));
